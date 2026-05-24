@@ -725,7 +725,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-xl);
+  border-radius: 20px;
+  border: 1px solid rgba(10, 186, 181, 0.3);
 }
 
 /* 浮動裝飾（統計數字） */
@@ -875,5 +876,129 @@
   .footer-bottom {
     flex-direction: column;
     gap: var(--space-2);
+  }
+}
+
+
+/* ============================================================
+   ♿ 無障礙友善切換模式與文案強調
+   ============================================================ */
+
+/* 🎨 宗旨文案強調螢光筆劃效果 */
+.text-highlight {
+  background: linear-gradient(180deg, transparent 58%, rgba(10, 186, 181, 0.22) 58%);
+  display: inline;
+  padding: 0 4px;
+  margin: 0 -2px;
+  border-radius: 4px;
+}
+.text-highlight.accent {
+  background: linear-gradient(180deg, transparent 58%, rgba(255, 111, 97, 0.22) 58%);
+}
+
+/* ♿ 無障礙友善切換按鈕 */
+.a11y-toggle-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 990;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: var(--color-surface, #FFFFFF);
+  color: var(--color-primary-dark, #089E9A);
+  border: 2px solid rgba(10, 186, 181, 0.3);
+  border-radius: 30px;
+  font-family: var(--font-family-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(10, 186, 181, 0.15);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.a11y-toggle-btn:hover {
+  transform: translateY(-3px);
+  background: var(--color-primary-bg, #E8F8F5);
+  color: var(--color-primary-dark, #089E9A);
+  border-color: var(--color-primary, #0ABAB5);
+  box-shadow: 0 10px 30px rgba(10, 186, 181, 0.3);
+}
+
+.a11y-icon {
+  flex-shrink: 0;
+}
+
+/* ♿ 無障礙高對比與放大模式 (.a11y-mode) */
+body.a11y-mode {
+  font-size: 1.2rem !important; /* 全站字體放大 1.2 倍 */
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  
+  /* 高對比設計 token 覆蓋 */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f1f3f5;
+  --color-border: #000000;
+  --color-border-light: #000000;
+  --color-text: #000000;
+  --color-text-secondary: #000000;
+  --color-text-light: #1a1a1a;
+  
+  --color-primary: #005a52; /* 高對比深藍綠色 */
+  --color-primary-dark: #003d37;
+  --color-primary-light: #d0f0ec;
+  --color-primary-bg: #e6f7f5;
+}
+
+/* 連結與按鈕更顯眼的底線或邊框 */
+body.a11y-mode a {
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+}
+
+body.a11y-mode .nav-link {
+  text-decoration: underline !important;
+}
+
+body.a11y-mode button,
+body.a11y-mode .btn,
+body.a11y-mode .filter-tag,
+body.a11y-mode .resource-card,
+body.a11y-mode .rd-modal-card {
+  border: 2px solid #000000 !important;
+  box-shadow: none !important;
+}
+
+body.a11y-mode .resource-card {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+body.a11y-mode .site-footer {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-top: 3px solid #005a52;
+}
+
+body.a11y-mode .site-footer a {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+body.a11y-mode .a11y-toggle-btn {
+  background: #005a52 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+@media (max-width: 576px) {
+  .a11y-toggle-btn {
+    bottom: 24px;
+    right: 24px;
+    padding: 10px 18px;
+    font-size: 0.8rem;
   }
 }

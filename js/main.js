@@ -54,6 +54,10 @@
 
     // ── 7. 頁尾年份 ──
     updateCopyrightYear();
+    // ── 8. 初始化無障礙切換系統 ──
+    if (typeof initA11yMode === 'function') {
+      initA11yMode();
+    }
   });
 
 
@@ -166,4 +170,37 @@
     }
   }
 
+
+  /* ─────────────────────────────────────────────
+     § 無障礙友善切換系統 (A11y System)
+     ───────────────────────────────────────────── */
+  function initA11yMode() {
+    const btn = document.getElementById('a11y-toggle-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const isA11y = document.body.classList.toggle('a11y-mode');
+      btn.setAttribute('aria-pressed', isA11y.toString());
+
+      // 建立 Toast 相容的輔助函式
+      const msg = isA11y 
+        ? '已開啟無障礙友善模式，讓我們共同消弭學習阻礙！ ♿' 
+        : '已關閉無障礙友善模式。';
+      
+      if (typeof window.showToast === 'function') {
+        window.showToast(msg);
+      } else {
+        const toast = document.getElementById('toast');
+        const msgEl = document.getElementById('toast-message');
+        if (toast && msgEl) {
+          msgEl.textContent = msg;
+          toast.classList.add('active');
+          setTimeout(() => toast.classList.remove('active'), 3500);
+        }
+      }
+    });
+  }
+
+  // Export to window
+  window.initA11yMode = initA11yMode;
 })();

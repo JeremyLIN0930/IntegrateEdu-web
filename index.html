@@ -255,7 +255,10 @@ button { font-family: var(--font-primary); }
 .sdg-10 { background: #DD1367; }
 .about-visual { position: relative; }
 .about-visual img {
-  width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid rgba(10, 186, 181, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 .about-stat {
   position: absolute; background: #fff; border-radius: var(--radius-md);
@@ -839,7 +842,128 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   }
   .reveal { opacity: 1; transform: none; }
 }
-  </style>
+  
+/* 🎨 宗旨文案強調螢光筆劃效果 */
+.text-highlight {
+  background: linear-gradient(180deg, transparent 58%, rgba(10, 186, 181, 0.22) 58%);
+  display: inline;
+  padding: 0 4px;
+  margin: 0 -2px;
+  border-radius: 4px;
+}
+.text-highlight.accent {
+  background: linear-gradient(180deg, transparent 58%, rgba(255, 111, 97, 0.22) 58%);
+}
+
+/* ♿ 無障礙友善切換按鈕 */
+.a11y-toggle-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 990;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: var(--pure-white);
+  color: var(--tiffany-dark);
+  border: 2px solid rgba(10, 186, 181, 0.3);
+  border-radius: 30px;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(10, 186, 181, 0.15);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.a11y-toggle-btn:hover {
+  transform: translateY(-3px);
+  background: var(--tiffany-light);
+  color: var(--tiffany-dark);
+  border-color: var(--tiffany);
+  box-shadow: 0 10px 30px rgba(10, 186, 181, 0.3);
+}
+
+.a11y-icon {
+  flex-shrink: 0;
+}
+
+/* ♿ 無障礙高對比與放大模式 (.a11y-mode) */
+body.a11y-mode {
+  font-size: 1.2rem !important; /* 全站字體放大 1.2 倍 */
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  /* 高對比色彩覆蓋 */
+  --white: #ffffff;
+  --pure-white: #ffffff;
+  --gray-900: #000000;
+  --gray-700: #000000;
+  --gray-500: #1a1a1a;
+  --gray-300: #000000;
+  --gray-100: #f1f3f5;
+  --dark: #000000;
+  --dark-soft: #000000;
+  --tiffany: #005a52; /* 高對比深藍綠色 */
+  --tiffany-dark: #003d37;
+  --tiffany-light: #e6f7f5;
+  --tiffany-glow: rgba(0, 90, 82, 0.35);
+}
+
+/* 連結與按鈕更顯眼的底線或邊框 */
+body.a11y-mode a {
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+}
+
+body.a11y-mode .nav-link {
+  text-decoration: underline !important;
+}
+
+body.a11y-mode button,
+body.a11y-mode .btn,
+body.a11y-mode .filter-tag,
+body.a11y-mode .resource-card,
+body.a11y-mode .rd-modal-card {
+  border: 2px solid #000000 !important;
+  box-shadow: none !important;
+}
+
+body.a11y-mode .resource-card {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+body.a11y-mode .site-footer {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-top: 3px solid #005a52;
+}
+
+body.a11y-mode .site-footer a {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+body.a11y-mode .a11y-toggle-btn {
+  background: #005a52 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+@media (max-width: 576px) {
+  .a11y-toggle-btn {
+    bottom: 24px;
+    right: 24px;
+    padding: 10px 18px;
+    font-size: 0.8rem;
+  }
+  .toast-notification {
+    bottom: 90px !important;
+  }
+}
+</style>
 </head>
 <body>
   <!-- ♿ Skip Link -->
@@ -913,27 +1037,26 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   <section class="about-section section" id="about" aria-labelledby="about-title">
     <div class="container">
       <div class="about-grid">
-        <div class="about-text reveal">
-          <h2 id="about-title">用設計的力量<br>改變教育的形狀</h2>
+        <!-- 左側影像區 (團隊工作側拍) -->
+        <div class="about-visual reveal">
+          <img src="assets/images/card-design.png" alt="團隊工作側拍：結合設計與攝影專業的大學生專注討論" loading="lazy">
+          <div class="about-stat stat-1" aria-label="整合超過 200 筆免費學習資源"><div class="stat-number">200+</div><div class="stat-label">免費資源</div></div>
+          <div class="about-stat stat-2" aria-label="對接 6 大國際學習平台"><div class="stat-number">6</div><div class="stat-label">國際平台</div></div>
+        </div>
+        <!-- 右側敘事區 -->
+        <div class="about-text reveal reveal-delay-2">
+          <h2 id="about-title">用設計的力量，<br>改變教育的形狀</h2>
           <p class="about-description">
-            我們是一群來自設計與攝影專業的大學生，相信「好的設計能改變資訊傳遞的方式」。看見許多自主學習者在破碎的免費資源中迷失方向，我們決定以行動實踐
-            <strong>SDGs 4「優質教育」</strong>與
-            <strong>SDGs 10「消彌不平等」</strong>——透過極致的視覺美學與直覺的資訊架構，將散落各處的學習資源重新統合，打造一個乾淨、溫暖、零門檻的教育入口。
+            我們是一群結合設計與攝影專業的大學生，看見了許多偏鄉與資源缺乏的自主學習者，在凌亂的網路資源中感到迷茫。我們相信教育不應是特權，因此決定透過資訊統合與美學導讀，消弭這條無形的鴻溝。
           </p>
           <div class="sdg-badges">
             <div class="sdg-badge"><span class="sdg-number sdg-4" aria-hidden="true">4</span>優質教育</div>
             <div class="sdg-badge accent"><span class="sdg-number sdg-10" aria-hidden="true">10</span>消彌不平等</div>
           </div>
         </div>
-        <div class="about-visual reveal reveal-delay-2">
-          <img src="assets/images/card-design.png" alt="學生在充滿綠意的明亮工作室中專注學習" loading="lazy">
-          <div class="about-stat stat-1" aria-label="整合超過 200 筆免費學習資源"><div class="stat-number">200+</div><div class="stat-label">免費資源</div></div>
-          <div class="about-stat stat-2" aria-label="對接 6 大國際學習平台"><div class="stat-number">6</div><div class="stat-label">國際平台</div></div>
-        </div>
       </div>
     </div>
   </section>
-
   <!-- 📚 Resources -->
   <main id="main-content">
     <section class="section" id="resources" aria-labelledby="resources-title">
@@ -1826,9 +1949,42 @@ textarea.form-input { min-height: 100px; resize: vertical; }
     initModal();           // 8. Modal system (feedback/suggest)
     initResourceModal();   // 9. Resource detail modal
     initScrollReveal();    // 10. Scroll animations
+    initA11yMode();        // 11. Accessibility mode toggle
   });
 
+
+  /* ══════════════════════════════════════════════
+     12. Accessibility (A11y) System
+     ══════════════════════════════════════════════ */
+  function initA11yMode(){
+    var btn = document.getElementById('a11y-toggle-btn');
+    if(!btn) return;
+    
+    btn.addEventListener('click', function(){
+      var isA11y = document.body.classList.toggle('a11y-mode');
+      btn.setAttribute('aria-pressed', isA11y.toString());
+      
+      if(isA11y){
+        showToast('已開啟無障礙友善模式，讓我們共同消弭學習阻礙！ ♿');
+      } else {
+        showToast('已關閉無障礙友善模式。');
+      }
+    });
+  }
+
+  // Export globally for compatibility
+  window.showToast = showToast;
+  window.initA11yMode = initA11yMode;
 })();
   </script>
+
+  <!-- ♿ 無障礙友善切換按鈕 -->
+  <button class="a11y-toggle-btn" id="a11y-toggle-btn" aria-label="切換無障礙友善模式" aria-pressed="false">
+    <svg class="a11y-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="5" r="2.5" fill="currentColor"/>
+      <path d="M12 7.5v8.5M8 10h8M9 20l2.5-4h1L15 20"/>
+    </svg>
+    <span class="a11y-text">無障礙友善模式</span>
+  </button>
 </body>
 </html>
