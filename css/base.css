@@ -1,0 +1,250 @@
+/* ============================================================
+   🏗️ 基礎樣式 (base.css)
+   ============================================================
+   1. Modern CSS Reset
+   2. 全域排版
+   3. 基礎元素樣式
+   4. 無障礙與 Reduced Motion
+   ============================================================ */
+
+/* ── 1. Modern CSS Reset ── */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* 防止 iOS Safari 文字大小調整 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* 移除預設列表樣式 */
+ul, ol {
+  list-style: none;
+}
+
+/* 圖片自適應 */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 表單元素繼承字型 */
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+/* 連結重置 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 按鈕重置 */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+
+/* ── 2. 全域排版 (Typography) ── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: var(--font-size-hero);
+  font-weight: var(--font-weight-black);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semi);
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semi);
+}
+
+p {
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* 文字選取高亮：Tiffany 綠 */
+::selection {
+  background-color: var(--color-primary-lighter);
+  color: var(--color-text);
+}
+
+::-moz-selection {
+  background-color: var(--color-primary-lighter);
+  color: var(--color-text);
+}
+
+
+/* ── 3. 基礎佈局元素 ── */
+
+/* 通用容器 */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* 區段 */
+.section {
+  padding: var(--space-section) 0;
+}
+
+/* 區段標題組 */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.section-header h2 {
+  margin-bottom: var(--space-3);
+  position: relative;
+  display: inline-block;
+}
+
+/* 標題底線裝飾 */
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: var(--radius-full);
+}
+
+.section-header p {
+  font-size: var(--font-size-md);
+  max-width: 600px;
+  margin: var(--space-4) auto 0;
+}
+
+
+/* ── 4. 焦點可見性 & 無障礙 ── */
+
+/* 鍵盤焦點樣式（只在 Tab 導航時顯示） */
+*:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* 滑鼠點擊不顯示焦點環 */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 跳至主要內容（螢幕閱讀器用） */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-semi);
+  z-index: calc(var(--z-modal) + 1);
+  transition: top var(--duration-fast) var(--ease-out-expo);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* 螢幕閱讀器專用（視覺隱藏但可讀取） */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
+/* ── 5. Reduced Motion 偏好 ── */
+
+/* 
+   尊重使用者的「減少動態」系統設定。
+   開啟此設定後：
+   - 所有 CSS 動畫縮短為極短時間
+   - 所有過渡縮短
+   - Canvas 粒子動畫也會在 JS 中偵測此設定並關閉
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ── 6. 滾動條自訂（Webkit） ── */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}

@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知識無界，學習無價 — 免費線上教育資源統合平台</title>
+  <meta name="description" content="我們用設計的力量統合免費學習資源，讓每一位自主學習者都能在指尖觸及優質教育。實踐 SDGs 4 優質教育與 SDGs 10 消彌不平等。">
+  <meta name="keywords" content="免費教育資源, 線上學習, SDGs, 優質教育, 自主學習, 免費課程">
+  <meta name="author" content="知識無界團隊">
+  <meta property="og:title" content="知識無界，學習無價 — 免費線上教育資源統合平台">
+  <meta property="og:description" content="透過設計的力量統合免費學習資源，消弭自主學習者的資訊落差。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+/* ══════════════════════════════════════════════
+   CSS Variables / Design Tokens
+   ══════════════════════════════════════════════ */
+:root {
+  --tiffany: #0ABAB5;
+  --tiffany-dark: #089A96;
+  --tiffany-light: #E0F7F6;
+  --tiffany-glow: rgba(10,186,181,0.25);
+  --coral: #FF6F61;
+  --coral-light: #FFE8E5;
+  --dark: #1A1A2E;
+  --dark-soft: #2D2D44;
+  --gray-900: #212529;
+  --gray-700: #495057;
+  --gray-500: #6c757d;
+  --gray-300: #dee2e6;
+  --gray-100: #f8f9fa;
+  --white: #FAFAFA;
+  --pure-white: #FFFFFF;
+  --font-primary: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+  --nav-height: 72px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+  --shadow-glow: 0 8px 32px var(--tiffany-glow);
+  --transition-fast: 0.2s cubic-bezier(0.23,1,0.32,1);
+  --transition-smooth: 0.4s cubic-bezier(0.23,1,0.32,1);
+  --transition-spring: 0.6s cubic-bezier(0.23,1,0.32,1);
+  --z-canvas: -1;
+  --z-content: 1;
+  --z-nav: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+}
+
+/* ══════════════════════════════════════════════
+   CSS Reset & Base
+   ══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-primary);
+  background: var(--white);
+  color: var(--gray-900);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font-primary); }
+::selection { background: var(--tiffany); color: var(--pure-white); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Skip Link ── */
+.skip-link {
+  position: absolute; top: -100%; left: 16px;
+  background: var(--tiffany); color: #fff; padding: 12px 24px;
+  border-radius: var(--radius-sm); font-weight: 600; z-index: 9999;
+}
+.skip-link:focus { top: 16px; }
+
+/* ── Canvas ── */
+#particle-canvas {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: var(--z-canvas); pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════
+   Navigation
+   ══════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+  z-index: var(--z-nav); transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
+}
+.nav.scrolled {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 100%;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 1.25rem; color: var(--dark); text-decoration: none;
+}
+.logo-icon { font-size: 1.5rem; color: var(--tiffany); font-weight: 900; }
+.nav-links { display: flex; align-items: center; gap: 8px; }
+.nav-link {
+  padding: 8px 16px; color: var(--gray-700); text-decoration: none;
+  font-weight: 500; font-size: 0.9rem; border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+.nav-link:hover { color: var(--tiffany); background: var(--tiffany-light); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 32px; border-radius: var(--radius-xl); font-weight: 600;
+  font-size: 1rem; text-decoration: none; border: none; cursor: pointer;
+  transition: var(--transition-smooth); font-family: var(--font-primary);
+}
+.btn-primary {
+  background: var(--tiffany); color: #fff; box-shadow: var(--shadow-glow);
+}
+.btn-primary:hover {
+  background: var(--tiffany-dark); transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--tiffany-glow);
+}
+.btn-secondary {
+  background: transparent; color: var(--gray-700); border: 1.5px solid var(--gray-300);
+}
+.btn-secondary:hover { border-color: var(--tiffany); color: var(--tiffany); }
+.btn-sm { padding: 8px 20px; font-size: 0.85rem; border-radius: 20px; }
+.btn-lg { padding: 16px 40px; font-size: 1.05rem; }
+
+/* ── Hamburger ── */
+.nav-toggle {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 8px; z-index: 10;
+}
+.nav-toggle span {
+  width: 24px; height: 2px; background: var(--dark);
+  border-radius: 2px; transition: 0.3s;
+}
+.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none; flex-direction: column; position: absolute;
+    top: var(--nav-height); left: 0; right: 0;
+    background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+    padding: 16px 24px; box-shadow: var(--shadow-md);
+    border-bottom: 1px solid var(--gray-300); gap: 4px;
+  }
+  .nav-links.active { display: flex; }
+  .nav-link { padding: 12px 16px; width: 100%; }
+  .nav-links .btn { width: 100%; margin-top: 8px; }
+}
+
+/* ══════════════════════════════════════════════
+   Hero Section
+   ══════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: calc(var(--nav-height) + 40px) 24px 60px;
+  position: relative;
+}
+.hero-content { max-width: 800px; position: relative; z-index: var(--z-content); }
+.hero-sdg-badges {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-bottom: 32px; flex-wrap: wrap;
+}
+.sdg-icon-badge {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px; border-radius: var(--radius-xl);
+  border: 1.5px solid var(--gray-300);
+  background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
+}
+.sdg-icon { width: 36px; height: 36px; }
+.sdg-4-badge { color: #C5192D; }
+.sdg-10-badge { color: #DD1367; }
+.sdg-divider { font-size: 1.2rem; color: var(--gray-500); font-weight: 300; }
+.sdg-icon-text { display: flex; flex-direction: column; }
+.sdg-num { font-weight: 700; font-size: 0.75rem; letter-spacing: 0.05em; }
+.sdg-label { font-weight: 500; font-size: 0.85rem; }
+.hero-title {
+  font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 900; line-height: 1.2;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #1A5276, var(--tiffany), #0ABAB5);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-philosophy {
+  font-size: clamp(1rem, 2.5vw, 1.35rem); font-weight: 600;
+  color: var(--coral); margin-bottom: 16px; letter-spacing: 0.03em;
+}
+.hero-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--gray-500);
+  line-height: 1.8; margin-bottom: 40px;
+}
+.hero-cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; color: var(--gray-500); font-size: 0.8rem;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--tiffany), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@media (max-width: 576px) {
+  .hero-sdg-badges { flex-direction: column; gap: 10px; }
+  .hero-cta-group { flex-direction: column; }
+  .hero-cta-group .btn-lg { width: 100%; }
+  .scroll-hint { display: none; }
+}
+
+/* ══════════════════════════════════════════════
+   About Section
+   ══════════════════════════════════════════════ */
+.about-section { padding: 100px 0; }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+.about-text h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800;
+  line-height: 1.3; margin-bottom: 24px; color: var(--dark);
+}
+.about-description { font-size: 1rem; line-height: 1.9; color: var(--gray-700); }
+.sdg-badges { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+.sdg-badge {
+  display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+  border-radius: var(--radius-xl); background: var(--tiffany-light);
+  font-weight: 600; font-size: 0.85rem; color: var(--tiffany-dark);
+}
+.sdg-badge.accent { background: var(--coral-light); color: var(--coral); }
+.sdg-number {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 800; font-size: 0.8rem;
+}
+.sdg-4 { background: #C5192D; }
+.sdg-10 { background: #DD1367; }
+.about-visual { position: relative; }
+.about-visual img {
+  width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+}
+.about-stat {
+  position: absolute; background: #fff; border-radius: var(--radius-md);
+  padding: 16px 20px; box-shadow: var(--shadow-md);
+}
+.stat-1 { top: -16px; right: -16px; }
+.stat-2 { bottom: 24px; left: -16px; }
+.stat-number { font-size: 1.8rem; font-weight: 800; color: var(--tiffany); }
+.stat-label { font-size: 0.75rem; color: var(--gray-500); font-weight: 500; }
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-section { padding: 60px 0; }
+  .stat-1 { top: -10px; right: 10px; }
+  .stat-2 { bottom: 10px; left: 10px; }
+}
+
+/* ══════════════════════════════════════════════
+   Section Shared
+   ══════════════════════════════════════════════ */
+.section { padding: 80px 0; }
+.section-header {
+  text-align: center; max-width: 600px; margin: 0 auto 48px;
+}
+.section-header h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800;
+  color: var(--dark); margin-bottom: 12px;
+}
+.section-header p { color: var(--gray-500); font-size: 1rem; line-height: 1.7; }
+
+/* ══════════════════════════════════════════════
+   Filter Bar
+   ══════════════════════════════════════════════ */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin-bottom: 40px;
+}
+.filter-tag {
+  padding: 8px 20px; border-radius: 20px;
+  border: 1.5px solid var(--gray-300); background: #fff;
+  color: var(--gray-700); font-weight: 500; font-size: 0.85rem;
+  cursor: pointer; transition: var(--transition-fast); white-space: nowrap;
+  font-family: var(--font-primary);
+}
+.filter-tag:hover { border-color: var(--tiffany); color: var(--tiffany); }
+.filter-tag.active {
+  background: var(--tiffany); color: #fff;
+  border-color: var(--tiffany); box-shadow: var(--shadow-glow);
+}
+@media (max-width: 576px) {
+  .filter-bar {
+    flex-wrap: nowrap; justify-content: flex-start;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px; gap: 6px;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+}
+
+/* ══════════════════════════════════════════════
+   Card Grid — Bootstrap-equivalent RWD
+   ══════════════════════════════════════════════ */
+.card-grid {
+  display: grid; grid-template-columns: 1fr; gap: 24px;
+}
+@media (min-width: 768px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 992px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1200px) {
+  .card-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ══════════════════════════════════════════════
+   Resource Card
+   ══════════════════════════════════════════════ */
+.resource-card {
+  background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); cursor: pointer; position: relative;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
+  will-change: transform;
+}
+.card-image-wrap { position: relative; overflow: hidden; aspect-ratio: 16/10; }
+.card-image-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.resource-card:hover .card-image-wrap img { transform: scale(1.05); }
+.card-category-tag {
+  position: absolute; top: 12px; left: 12px;
+  padding: 4px 12px; border-radius: 12px;
+  font-size: 0.75rem; font-weight: 600; color: #fff;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.card-category-tag[data-cat="design"]  { background: rgba(10,186,181,0.85); }
+.card-category-tag[data-cat="code"]    { background: rgba(99,102,241,0.85); }
+.card-category-tag[data-cat="language"]{ background: rgba(245,158,11,0.85); }
+.card-category-tag[data-cat="art"]     { background: rgba(236,72,153,0.85); }
+.card-category-tag[data-cat="exam"]    { background: rgba(16,185,129,0.85); }
+.card-category-tag[data-cat="science"] { background: rgba(59,130,246,0.85); }
+.card-body { padding: 20px; }
+.card-platform {
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--tiffany); margin-bottom: 6px;
+}
+.card-title {
+  font-size: 1.05rem; font-weight: 700; color: var(--dark);
+  margin-bottom: 8px; line-height: 1.4;
+}
+.card-desc {
+  font-size: 0.85rem; color: var(--gray-500); line-height: 1.6;
+  margin-bottom: 16px; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-footer { display: flex; justify-content: space-between; align-items: center; }
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.card-tag-item {
+  font-size: 0.7rem; padding: 3px 10px; border-radius: 10px;
+  background: var(--gray-100); color: var(--gray-500); font-weight: 500;
+}
+.card-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.8rem; font-weight: 600; color: var(--tiffany);
+  text-decoration: none; padding: 6px 14px; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--tiffany-light); transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+.card-link:hover { background: var(--tiffany); color: #fff; border-color: var(--tiffany); }
+.card-link:hover .card-link-logo svg { fill: #fff; color: #fff; }
+.card-link-logo { width: 16px; height: 16px; flex-shrink: 0; display: flex; align-items: center; }
+.card-link-logo svg { width: 16px; height: 16px; }
+.filter-hidden { display: none !important; }
+
+/* Touch device: simple press feedback */
+@media (pointer: coarse) {
+  .resource-card:active {
+    transform: translateY(-6px) !important;
+    box-shadow: var(--shadow-lg) !important;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   CTA Section
+   ══════════════════════════════════════════════ */
+.cta-section {
+  text-align: center;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-soft) 100%);
+  color: #fff; border-radius: var(--radius-xl);
+  margin: 0 24px; padding: 80px 40px;
+}
+.cta-section h2 {
+  font-size: clamp(1.3rem, 4vw, 2rem); font-weight: 800; margin-bottom: 16px;
+}
+.cta-section p {
+  color: rgba(255,255,255,0.7); margin-bottom: 32px; font-size: 1rem;
+}
+@media (max-width: 576px) {
+  .cta-section { padding: 60px 20px; margin: 0 16px; border-radius: var(--radius-lg); }
+  .cta-section .btn-lg { width: 100%; }
+}
+
+/* ══════════════════════════════════════════════
+   Footer
+   ══════════════════════════════════════════════ */
+.site-footer {
+  background: var(--gray-900); color: rgba(255,255,255,0.7);
+  padding: 64px 0 0; margin-top: 80px;
+}
+.footer-inner {
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
+}
+.footer-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 16px;
+}
+.footer-brand p { line-height: 1.8; font-size: 0.9rem; }
+.footer-col h4 {
+  color: #fff; font-weight: 600; margin-bottom: 16px; font-size: 0.9rem;
+}
+.footer-col a {
+  display: block; color: rgba(255,255,255,0.6); text-decoration: none;
+  padding: 6px 0; font-size: 0.85rem; transition: var(--transition-fast);
+}
+.footer-col a:hover { color: var(--tiffany); }
+.footer-bottom {
+  margin-top: 48px; padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 8px; font-size: 0.8rem;
+}
+@media (max-width: 768px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 576px) {
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .site-footer { padding: 48px 0 0; }
+}
+
+/* ══════════════════════════════════════════════
+   Modal System — Glassmorphism
+   ══════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: var(--z-modal); display: flex; align-items: center; justify-content: center;
+  padding: 24px; opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-card {
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg); padding: 40px;
+  max-width: 480px; width: 100%; box-shadow: var(--shadow-lg);
+  transform: translateY(20px) scale(0.97); transition: var(--transition-spring);
+  position: relative;
+}
+.modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 16px; right: 16px; width: 32px; height: 32px;
+  background: var(--gray-100); border: none; border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: var(--gray-700); transition: var(--transition-fast);
+}
+.modal-close:hover { background: var(--gray-300); }
+.modal-title { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+.modal-subtitle { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 24px; }
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block; font-size: 0.8rem; font-weight: 600;
+  color: var(--gray-700); margin-bottom: 6px;
+}
+.form-input {
+  width: 100%; padding: 12px 16px;
+  border: 1.5px solid var(--gray-300); border-radius: var(--radius-sm);
+  font-size: 0.9rem; font-family: var(--font-primary);
+  transition: var(--transition-fast); background: var(--pure-white);
+  box-sizing: border-box;
+}
+.form-input:focus {
+  outline: none; border-color: var(--tiffany);
+  box-shadow: 0 0 0 3px var(--tiffany-glow);
+}
+textarea.form-input { min-height: 100px; resize: vertical; }
+.modal-submit {
+  width: 100%; padding: 14px; background: var(--tiffany); color: #fff;
+  border: none; border-radius: var(--radius-sm); font-size: 1rem;
+  font-weight: 600; cursor: pointer; transition: var(--transition-fast);
+  font-family: var(--font-primary);
+}
+.modal-submit:hover { background: var(--tiffany-dark); transform: translateY(-1px); }
+
+@media (max-width: 576px) {
+  .modal-card { padding: 28px 20px; margin: 16px; max-width: calc(100% - 32px); }
+}
+
+/* ══════════════════════════════════════════════
+   Toast Notification
+   ══════════════════════════════════════════════ */
+.toast-notification {
+  position: fixed; bottom: 32px; right: 32px;
+  background: var(--tiffany); color: #fff;
+  padding: 16px 24px; border-radius: var(--radius-md);
+  font-weight: 600; font-size: 0.9rem; box-shadow: var(--shadow-lg);
+  z-index: var(--z-toast); transform: translateY(100px); opacity: 0;
+  transition: var(--transition-spring);
+  display: flex; align-items: center; gap: 10px;
+}
+.toast-notification.active { transform: translateY(0); opacity: 1; }
+@media (max-width: 576px) {
+  .toast-notification { right: 16px; left: 16px; bottom: 16px; }
+}
+
+/* ══════════════════════════════════════════════
+   Animations & Scroll Reveal
+   ══════════════════════════════════════════════ */
+@keyframes scrollPulse {
+  0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); }
+}
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1),
+              transform 0.8s cubic-bezier(0.23,1,0.32,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-2 { transition-delay: 0.15s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+  </style>
+</head>
+<body>
+  <!-- ♿ Skip Link -->
+  <a href="#main-content" class="skip-link" id="skip-link">跳至主要內容</a>
+
+  <!-- 🌌 Canvas Background -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- 📍 Navigation -->
+  <header>
+    <nav class="nav" role="navigation" aria-label="主要導航">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" aria-label="知識無界 — 首頁">
+          <span class="logo-icon" aria-hidden="true">∞</span>
+          <span>知識無界</span>
+        </a>
+        <div class="nav-links" id="nav-links" role="menubar">
+          <a href="#hero" class="nav-link" role="menuitem">首頁</a>
+          <a href="#about" class="nav-link" role="menuitem">關於我們</a>
+          <a href="#resources" class="nav-link" role="menuitem">學習資源</a>
+          <a href="#resources" class="btn btn-primary btn-sm" role="menuitem">開始探索 →</a>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="開啟選單" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 🦸 Hero -->
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <div class="hero-sdg-badges" aria-label="實踐聯合國永續發展目標">
+        <div class="sdg-icon-badge sdg-4-badge">
+          <svg class="sdg-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <path d="M18 10 L6 13 L6 28 L18 25 L30 28 L30 13 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <line x1="18" y1="10" x2="18" y2="25" stroke="currentColor" stroke-width="1.8"/>
+            <polygon points="18,4 10,8 18,12 26,8" fill="currentColor" opacity="0.85"/>
+            <line x1="25" y1="8" x2="25" y2="14" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="25" cy="14.5" r="1" fill="currentColor"/>
+          </svg>
+          <div class="sdg-icon-text"><span class="sdg-num">SDG 4</span><span class="sdg-label">優質教育</span></div>
+        </div>
+        <span class="sdg-divider" aria-hidden="true">×</span>
+        <div class="sdg-icon-badge sdg-10-badge">
+          <svg class="sdg-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect x="10" y="13" width="16" height="2.5" rx="1.25" fill="currentColor"/>
+            <rect x="10" y="20" width="16" height="2.5" rx="1.25" fill="currentColor"/>
+            <polyline points="7,9 4,6 7,6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="29,9 32,6 29,6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="7,27 4,30 7,30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="29,27 32,30 29,30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="sdg-icon-text"><span class="sdg-num">SDG 10</span><span class="sdg-label">消彌不平等</span></div>
+        </div>
+      </div>
+      <h1 class="hero-title" id="hero-title">知識無界，學習無價</h1>
+      <p class="hero-philosophy">教育不應是特權，而是每個人的基本權利。</p>
+      <p class="hero-subtitle">我們用設計的力量統合免費學習資源，<br>讓每一位自主學習者都能在指尖觸及優質教育。</p>
+      <div class="hero-cta-group">
+        <a href="#resources" class="btn btn-primary btn-lg" id="cta-explore">開始探索學習資源 →</a>
+        <a href="#about" class="btn btn-secondary btn-lg" id="cta-about">了解我們的故事</a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <span>向下滾動探索</span><span class="scroll-line"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🏫 About -->
+  <section class="about-section section" id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <h2 id="about-title">用設計的力量<br>改變教育的形狀</h2>
+          <p class="about-description">
+            我們是一群來自設計與攝影專業的大學生，相信「好的設計能改變資訊傳遞的方式」。看見許多自主學習者在破碎的免費資源中迷失方向，我們決定以行動實踐
+            <strong>SDGs 4「優質教育」</strong>與
+            <strong>SDGs 10「消彌不平等」</strong>——透過極致的視覺美學與直覺的資訊架構，將散落各處的學習資源重新統合，打造一個乾淨、溫暖、零門檻的教育入口。
+          </p>
+          <div class="sdg-badges">
+            <div class="sdg-badge"><span class="sdg-number sdg-4" aria-hidden="true">4</span>優質教育</div>
+            <div class="sdg-badge accent"><span class="sdg-number sdg-10" aria-hidden="true">10</span>消彌不平等</div>
+          </div>
+        </div>
+        <div class="about-visual reveal reveal-delay-2">
+          <img src="assets/images/card-design.png" alt="學生在充滿綠意的明亮工作室中專注學習" loading="lazy">
+          <div class="about-stat stat-1" aria-label="整合超過 200 筆免費學習資源"><div class="stat-number">200+</div><div class="stat-label">免費資源</div></div>
+          <div class="about-stat stat-2" aria-label="對接 6 大國際學習平台"><div class="stat-number">6</div><div class="stat-label">國際平台</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📚 Resources -->
+  <main id="main-content">
+    <section class="section" id="resources" aria-labelledby="resources-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="resources-title">探索學習資源</h2>
+          <p>從設計到程式、從語文到科學——我們嚴選全球頂尖的免費學習平台，為你統合最適切的學習路徑。</p>
+        </div>
+        <div class="filter-bar reveal" role="toolbar" aria-label="資源分類篩選">
+          <button class="filter-tag active" data-filter="all" aria-pressed="true">全部</button>
+          <button class="filter-tag" data-filter="design" aria-pressed="false">🎨 設計</button>
+          <button class="filter-tag" data-filter="code" aria-pressed="false">💻 程式</button>
+          <button class="filter-tag" data-filter="language" aria-pressed="false">📖 語文</button>
+          <button class="filter-tag" data-filter="art" aria-pressed="false">🎭 藝術</button>
+          <button class="filter-tag" data-filter="exam" aria-pressed="false">📝 升學</button>
+          <button class="filter-tag" data-filter="science" aria-pressed="false">🔬 科學</button>
+        </div>
+        <div class="card-grid" id="card-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- 📢 CTA -->
+    <section class="cta-section section" id="cta" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="cta-title">每個人都值得更好的學習機會</h2>
+          <p>無論你身在何方，無論你的起點在哪裡，這裡都有一條屬於你的學習路徑。</p>
+          <a href="#resources" class="btn btn-primary btn-lg" id="cta-final">開始你的學習旅程 →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 🦶 Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo"><span class="logo-icon" aria-hidden="true">∞</span><span>知識無界</span></div>
+          <p>我們相信教育的力量可以改變世界。透過設計與科技，讓優質的學習資源觸手可及。</p>
+        </div>
+        <div class="footer-col">
+          <h4>探索</h4>
+          <a href="#resources">學習資源</a>
+          <a href="#about">關於我們</a>
+          <a href="#">使用指南</a>
+          <a href="#">常見問題</a>
+        </div>
+        <div class="footer-col">
+          <h4>聯絡我們</h4>
+          <a href="#" data-modal="suggest">提交資源建議</a>
+          <a href="#">合作夥伴</a>
+          <a href="#" data-modal="feedback">意見回饋</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="copyright-year">2026</span> 知識無界團隊 — 實踐 SDGs 4 &amp; 10</span>
+        <span>以 ❤️ 與設計的力量打造</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 🪟 Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="關閉">✕</button>
+      <h3 class="modal-title" id="modal-title">提交資源建議</h3>
+      <p class="modal-subtitle" id="modal-subtitle">分享你發現的優質免費學習資源，讓更多人受益。</p>
+      <form id="modal-form">
+        <div class="form-group">
+          <label for="form-name">你的暱稱</label>
+          <input type="text" id="form-name" class="form-input" placeholder="例：小明" required>
+        </div>
+        <div class="form-group">
+          <label for="form-email">電子信箱</label>
+          <input type="email" id="form-email" class="form-input" placeholder="example@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label for="form-message" id="form-message-label">建議內容</label>
+          <textarea id="form-message" class="form-input" placeholder="請描述你想推薦的資源..." required></textarea>
+        </div>
+        <button type="submit" class="modal-submit">送出建議 →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 🍞 Toast -->
+  <div class="toast-notification" id="toast">
+    <span>✓</span>
+    <span id="toast-message">感謝你的建議！我們會盡快審核。</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       📜 JavaScript — 全部內嵌
+       ═══════════════════════════════════════════ -->
+  <script>
+(function(){
+  'use strict';
+
+  /* ══════════════════════════════════════════════
+     1. Particle System (Canvas 2D)
+     ══════════════════════════════════════════════ */
+  (function initParticles(){
+    var canvas = document.getElementById('particle-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+
+    var CONFIG = {
+      COUNT: 120,
+      MIN_R: 1.5,
+      MAX_R: 4,
+      BASE_SPEED: 0.3,
+      SCROLL_MULT: 0.08,
+      COLORS: [
+        'rgba(10,186,181,0.5)',
+        'rgba(10,186,181,0.3)',
+        'rgba(255,111,97,0.35)',
+        'rgba(200,200,220,0.25)',
+        'rgba(10,186,181,0.15)'
+      ],
+      CONN_DIST: 120,
+      CONN_ALPHA: 0.06
+    };
+
+    var particles = [];
+    var W = 0, H = 0;
+    var scrollDelta = 0;
+    var lastScrollY = 0;
+
+    function resize(){
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function create(){
+      particles = [];
+      for(var i = 0; i < CONFIG.COUNT; i++){
+        particles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: CONFIG.MIN_R + Math.random() * (CONFIG.MAX_R - CONFIG.MIN_R),
+          vx: (Math.random() - 0.5) * CONFIG.BASE_SPEED,
+          vy: (Math.random() - 0.5) * CONFIG.BASE_SPEED,
+          color: CONFIG.COLORS[Math.floor(Math.random() * CONFIG.COLORS.length)],
+          baseAlpha: 0.3 + Math.random() * 0.5,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function animate(){
+      ctx.clearRect(0, 0, W, H);
+      var cs = window.scrollY;
+      scrollDelta += (cs - lastScrollY) * CONFIG.SCROLL_MULT;
+      scrollDelta *= 0.92;
+      lastScrollY = cs;
+      var t = Date.now() * 0.001;
+
+      for(var i = 0; i < particles.length; i++){
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy - scrollDelta * 0.5;
+        var alpha = p.baseAlpha * (0.6 + 0.4 * Math.sin(t + p.phase));
+        if(p.x < -10) p.x = W + 10;
+        if(p.x > W + 10) p.x = -10;
+        if(p.y < -10) p.y = H + 10;
+        if(p.y > H + 10) p.y = -10;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
+
+        for(var j = i + 1; j < particles.length; j++){
+          var p2 = particles[j];
+          var dx = p.x - p2.x, dy = p.y - p2.y;
+          var dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < CONFIG.CONN_DIST){
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = 'rgba(10,186,181,' + (CONFIG.CONN_ALPHA * (1 - dist / CONFIG.CONN_DIST)) + ')';
+            ctx.globalAlpha = 1;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function(){ resize(); create(); }, 200);
+    });
+
+    resize();
+    create();
+    animate();
+  })();
+
+  /* ══════════════════════════════════════════════
+     2. Resource Data
+     ══════════════════════════════════════════════ */
+  var RESOURCES = [
+    {
+      id:'figma', platform:'Figma',
+      title:'Figma — 免費協作 UI 設計工具',
+      description:'業界標準的介面設計工具，免費版已含強大的即時協作功能。從零開始學習 UI/UX 設計的最佳起點。',
+      category:'design', categoryLabel:'🎨 設計',
+      tags:['UI設計','免費工具'],
+      image:'assets/images/card-design.png',
+      url:'https://www.figma.com/', logo:'figma'
+    },
+    {
+      id:'canva', platform:'Canva',
+      title:'Canva — 零門檻視覺設計平台',
+      description:'拖拉式操作，數千種免費模板。不懂設計也能快速產出專業的社群貼文、簡報、海報。',
+      category:'design', categoryLabel:'🎨 設計',
+      tags:['平面設計','模板'],
+      image:'assets/images/card-art.png',
+      url:'https://www.canva.com/', logo:'canva'
+    },
+    {
+      id:'freecodecamp', platform:'freeCodeCamp',
+      title:'freeCodeCamp — 完全免費的程式學習',
+      description:'超過 8,000 小時的免費課程與認證，涵蓋網頁開發、Python、資料科學等熱門領域。',
+      category:'code', categoryLabel:'💻 程式',
+      tags:['網頁開發','認證'],
+      image:'assets/images/card-programming.png',
+      url:'https://www.freecodecamp.org/', logo:'freecodecamp'
+    },
+    {
+      id:'scratch', platform:'MIT Scratch',
+      title:'Scratch — 視覺化積木程式語言',
+      description:'MIT 開發的視覺化程式語言，用拖拉積木的方式學寫程式，最適合初學者與青少年入門。',
+      category:'code', categoryLabel:'💻 程式',
+      tags:['入門友善','遊戲化'],
+      image:'assets/images/card-science.png',
+      url:'https://scratch.mit.edu/', logo:'scratch'
+    },
+    {
+      id:'duolingo', platform:'Duolingo',
+      title:'Duolingo — 遊戲化語言學習',
+      description:'全球最受歡迎的免費語言學習 App，支援超過 40 種語言，用遊戲機制讓學習變得有趣。',
+      category:'language', categoryLabel:'📖 語文',
+      tags:['多語言','遊戲化'],
+      image:'assets/images/card-language.png',
+      url:'https://www.duolingo.com/', logo:'duolingo'
+    },
+    {
+      id:'voicetube', platform:'VoiceTube',
+      title:'VoiceTube — 看影片學英文',
+      description:'透過 TED、電影片段等真實影片學英文，搭配即時字幕、口說練習功能，沉浸式提升英語能力。',
+      category:'language', categoryLabel:'📖 語文',
+      tags:['英語','影片學習'],
+      image:'assets/images/card-language.png',
+      url:'https://tw.voicetube.com/', logo:'voicetube'
+    },
+    {
+      id:'musescore', platform:'MuseScore',
+      title:'MuseScore — 免費樂譜創作工具',
+      description:'開源的專業樂譜編輯軟體，免費使用所有核心功能。適合音樂創作者、學生與教師。',
+      category:'art', categoryLabel:'🎭 藝術',
+      tags:['音樂','開源'],
+      image:'assets/images/card-art.png',
+      url:'https://musescore.org/', logo:'musescore'
+    },
+    {
+      id:'pixlr', platform:'Pixlr',
+      title:'Pixlr — 免費線上圖片編輯器',
+      description:'功能強大的線上影像編輯工具，免費版提供專業級修圖、去背、濾鏡等功能，無需安裝軟體。',
+      category:'art', categoryLabel:'🎭 藝術',
+      tags:['修圖','線上工具'],
+      image:'assets/images/card-art.png',
+      url:'https://pixlr.com/', logo:'pixlr'
+    },
+    {
+      id:'junyi', platform:'均一教育平台',
+      title:'均一 — 最懂台灣學生的教育平台',
+      description:'由財團法人均一平台教育基金會營運，完全免費，提供國小到高中完整課程影片與互動練習。',
+      category:'exam', categoryLabel:'📝 升學',
+      tags:['K-12','台灣課綱'],
+      image:'assets/images/card-exam.png',
+      url:'https://www.junyiacademy.org/', logo:'junyi'
+    },
+    {
+      id:'coolenglish', platform:'CoolEnglish',
+      title:'Cool English — 教育部英語學習平台',
+      description:'教育部建置的免費英語學習資源網，涵蓋聽說讀寫四大技能，搭配遊戲化練習機制。',
+      category:'exam', categoryLabel:'📝 升學',
+      tags:['英文','官方資源'],
+      image:'assets/images/card-exam.png',
+      url:'https://www.coolenglish.edu.tw/', logo:'coolenglish'
+    },
+    {
+      id:'khanacademy', platform:'Khan Academy',
+      title:'Khan Academy — 全球化免費教育',
+      description:'由 Sal Khan 創辦的非營利組織，提供數學、科學、經濟等完整課程，支援多國語言。',
+      category:'science', categoryLabel:'🔬 科學',
+      tags:['數理','國際化'],
+      image:'assets/images/card-science.png',
+      url:'https://www.khanacademy.org/', logo:'khanacademy'
+    },
+    {
+      id:'phet', platform:'PhET Simulations',
+      title:'PhET — 互動式科學模擬實驗',
+      description:'科羅拉多大學開發的免費互動模擬，涵蓋物理、化學、生物等學科，讓抽象概念視覺化。',
+      category:'science', categoryLabel:'🔬 科學',
+      tags:['模擬實驗','視覺化'],
+      image:'assets/images/card-science.png',
+      url:'https://phet.colorado.edu/', logo:'phet'
+    }
+  ];
+
+  /* ── Brand Logo SVGs ── */
+  function getBrandLogo(id){
+    var logos = {
+      figma:'<svg viewBox="0 0 16 16" fill="none"><circle cx="5" cy="3.5" r="2.5" fill="#F24E1E"/><circle cx="11" cy="3.5" r="2.5" fill="#A259FF"/><circle cx="5" cy="8" r="2.5" fill="#FF7262"/><circle cx="11" cy="8" r="2.5" fill="#1ABCFE"/><circle cx="5" cy="12.5" r="2.5" fill="#0ACF83"/></svg>',
+      canva:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#00C4CC"/><text x="8" y="11.5" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="Arial">C</text></svg>',
+      freecodecamp:'<svg viewBox="0 0 16 16" fill="none"><text x="8" y="12" text-anchor="middle" fill="#0A0A23" font-size="10" font-weight="700" font-family="monospace">&lt;/&gt;</text></svg>',
+      scratch:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#F9A825"/><circle cx="6" cy="7" r="1.2" fill="#fff"/><circle cx="10" cy="7" r="1.2" fill="#fff"/><path d="M5.5 10 Q8 12.5 10.5 10" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>',
+      duolingo:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#58CC02"/><circle cx="6.5" cy="7" r="1.5" fill="#fff"/><circle cx="6.5" cy="7" r="0.7" fill="#333"/><circle cx="10" cy="6" r="1.2" fill="#fff"/><circle cx="10" cy="6" r="0.6" fill="#333"/></svg>',
+      voicetube:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#41B4E6"/><polygon points="6.5,4.5 6.5,11.5 12,8" fill="#fff"/></svg>',
+      musescore:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#1A70B8"/><text x="8" y="12" text-anchor="middle" fill="#fff" font-size="12">♪</text></svg>',
+      pixlr:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#2E2E2E"/><circle cx="8" cy="8" r="3.5" fill="none" stroke="#4DD0E1" stroke-width="1.5"/><line x1="8" y1="4" x2="8" y2="12" stroke="#4DD0E1" stroke-width="0.8"/><line x1="4" y1="8" x2="12" y2="8" stroke="#4DD0E1" stroke-width="0.8"/></svg>',
+      junyi:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#1B998B"/><text x="8" y="11.5" text-anchor="middle" fill="#fff" font-size="8" font-weight="700" font-family="sans-serif">均</text></svg>',
+      coolenglish:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#3B82F6"/><circle cx="8" cy="8" r="4" fill="none" stroke="#fff" stroke-width="1.2"/><line x1="8" y1="4" x2="8" y2="12" stroke="#fff" stroke-width="0.8"/><ellipse cx="8" cy="8" rx="2" ry="4" fill="none" stroke="#fff" stroke-width="0.8"/></svg>',
+      khanacademy:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#14BF96"/><path d="M8 3 C5 5, 4 8, 8 13 C12 8, 11 5, 8 3Z" fill="#fff"/></svg>',
+      phet:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#4A90D9"/><circle cx="8" cy="8" r="1.5" fill="#fff"/><ellipse cx="8" cy="8" rx="5" ry="2" fill="none" stroke="#fff" stroke-width="0.8" transform="rotate(-30 8 8)"/><ellipse cx="8" cy="8" rx="5" ry="2" fill="none" stroke="#fff" stroke-width="0.8" transform="rotate(30 8 8)"/></svg>'
+    };
+    return logos[id] || '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#ccc"/></svg>';
+  }
+
+  /* ── Render Cards ── */
+  function renderCards(){
+    var grid = document.getElementById('card-grid');
+    if(!grid) return;
+    var html = '';
+    for(var i = 0; i < RESOURCES.length; i++){
+      var r = RESOURCES[i];
+      var tagsHtml = '';
+      for(var j = 0; j < r.tags.length; j++){
+        tagsHtml += '<span class="card-tag-item">' + r.tags[j] + '</span>';
+      }
+      html +=
+        '<article class="resource-card" data-category="' + r.category + '" role="listitem">' +
+          '<div class="card-image-wrap">' +
+            '<img src="' + r.image + '" alt="' + r.title + '" loading="lazy">' +
+            '<span class="card-category-tag" data-cat="' + r.category + '">' + r.categoryLabel + '</span>' +
+          '</div>' +
+          '<div class="card-body">' +
+            '<div class="card-platform">' + r.platform + '</div>' +
+            '<h3 class="card-title">' + r.title + '</h3>' +
+            '<p class="card-desc">' + r.description + '</p>' +
+            '<div class="card-footer">' +
+              '<div class="card-tags">' + tagsHtml + '</div>' +
+              '<a href="' + r.url + '" target="_blank" rel="noopener noreferrer" class="card-link" onclick="event.stopPropagation()">' +
+                '<span class="card-link-logo">' + getBrandLogo(r.logo) + '</span>' +
+                '前往學習' +
+              '</a>' +
+            '</div>' +
+          '</div>' +
+        '</article>';
+    }
+    grid.innerHTML = html;
+  }
+
+  /* ══════════════════════════════════════════════
+     3. Card 3D Tilt Manager
+     ══════════════════════════════════════════════ */
+  function CardTiltManager(){
+    var cards = document.querySelectorAll('.resource-card');
+    var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if(isTouch) return; // Touch devices: CSS :active only
+
+    for(var i = 0; i < cards.length; i++){
+      (function(card){
+        var rafId = null;
+        card.addEventListener('mouseenter', function(){
+          card.style.transition = 'transform 0.1s ease-out, box-shadow 0.3s';
+        });
+        card.addEventListener('mousemove', function(e){
+          if(rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(function(){
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var cx = rect.width / 2;
+            var cy = rect.height / 2;
+            var ry = ((x - cx) / cx) * 8;
+            var rx = ((cy - y) / cy) * 8;
+            card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-10px)';
+            card.style.boxShadow = '0 20px 60px rgba(0,0,0,0.15)';
+          });
+        });
+        card.addEventListener('mouseleave', function(){
+          if(rafId) cancelAnimationFrame(rafId);
+          card.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s';
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      })(cards[i]);
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     4. Smart Filter (FLIP Animation)
+     ══════════════════════════════════════════════ */
+  function SmartFilter(){
+    var filterBar = document.querySelector('.filter-bar');
+    var cardGrid = document.getElementById('card-grid');
+    if(!filterBar || !cardGrid) return;
+
+    var cards = [];
+    var currentFilter = 'all';
+    var isAnimating = false;
+
+    var FCFG = {
+      EXIT_DUR: 400, FLIP_DUR: 500, ENTER_DUR: 500,
+      EXIT_Y_MIN: 20, EXIT_Y_MAX: 50, EXIT_SCALE: 0.92,
+      ENTER_Y: 30, ENTER_STAGGER: 60,
+      EASE_EXIT: 'cubic-bezier(0.45,0,0.55,1)',
+      EASE_FLIP: 'cubic-bezier(0.23,1,0.32,1)',
+      EASE_ENTER: 'cubic-bezier(0.23,1,0.32,1)'
+    };
+
+    // Cache cards
+    cards = Array.from(cardGrid.querySelectorAll('.resource-card'));
+
+    function setActiveTag(tag){
+      filterBar.querySelectorAll('.filter-tag').forEach(function(t){
+        t.classList.remove('active');
+        t.setAttribute('aria-pressed','false');
+      });
+      tag.classList.add('active');
+      tag.setAttribute('aria-pressed','true');
+    }
+
+    function filterCards(filter){
+      isAnimating = true;
+      var toShow = [], toHide = [], alreadyVisible = [];
+
+      cards.forEach(function(card){
+        var cat = card.dataset.category;
+        var shouldShow = filter === 'all' || cat === filter;
+        var isVisible = !card.classList.contains('filter-hidden');
+        if(shouldShow && isVisible) alreadyVisible.push(card);
+        else if(shouldShow && !isVisible) toShow.push(card);
+        else if(!shouldShow && isVisible) toHide.push(card);
+      });
+
+      // FLIP: First
+      var firstPos = new Map();
+      alreadyVisible.forEach(function(card){
+        firstPos.set(card, card.getBoundingClientRect());
+      });
+
+      // Exit animation
+      toHide.forEach(function(card){
+        var ry = FCFG.EXIT_Y_MIN + Math.random() * (FCFG.EXIT_Y_MAX - FCFG.EXIT_Y_MIN);
+        card.style.transition = 'transform ' + FCFG.EXIT_DUR + 'ms ' + FCFG.EASE_EXIT + ', opacity ' + (FCFG.EXIT_DUR * 0.7) + 'ms ease';
+        card.style.transform = 'translateY(' + ry + 'px) scale(' + FCFG.EXIT_SCALE + ')';
+        card.style.opacity = '0';
+        card.style.pointerEvents = 'none';
+      });
+
+      setTimeout(function(){
+        // Hide exited cards
+        toHide.forEach(function(card){
+          card.classList.add('filter-hidden');
+          card.style.display = 'none';
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.transition = '';
+          card.style.pointerEvents = '';
+        });
+
+        // Prepare enter cards
+        toShow.forEach(function(card){
+          card.classList.remove('filter-hidden');
+          card.style.display = '';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(' + FCFG.ENTER_Y + 'px) scale(0.96)';
+        });
+
+        // FLIP: Last + Invert + Play
+        requestAnimationFrame(function(){
+          alreadyVisible.forEach(function(card){
+            var first = firstPos.get(card);
+            var last = card.getBoundingClientRect();
+            var dx = first.left - last.left;
+            var dy = first.top - last.top;
+            if(Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5){
+              card.style.transition = 'none';
+              card.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+              card.offsetHeight; // force reflow
+              card.style.transition = 'transform ' + FCFG.FLIP_DUR + 'ms ' + FCFG.EASE_FLIP;
+              card.style.transform = '';
+            }
+          });
+
+          // Enter with stagger
+          toShow.forEach(function(card, index){
+            setTimeout(function(){
+              card.style.transition = 'transform ' + FCFG.ENTER_DUR + 'ms ' + FCFG.EASE_ENTER + ', opacity ' + (FCFG.ENTER_DUR * 0.6) + 'ms ease';
+              card.style.transform = '';
+              card.style.opacity = '1';
+            }, index * FCFG.ENTER_STAGGER);
+          });
+
+          // Cleanup
+          var totalDur = Math.max(FCFG.FLIP_DUR, FCFG.ENTER_DUR + toShow.length * FCFG.ENTER_STAGGER);
+          setTimeout(function(){
+            cards.forEach(function(card){
+              card.style.transition = '';
+              card.style.transform = '';
+            });
+            isAnimating = false;
+          }, totalDur + 100);
+        });
+      }, FCFG.EXIT_DUR);
+    }
+
+    // Bind click
+    filterBar.addEventListener('click', function(e){
+      var tag = e.target.closest('.filter-tag');
+      if(!tag || isAnimating) return;
+      var filter = tag.dataset.filter;
+      if(filter === currentFilter) return;
+      setActiveTag(tag);
+      filterCards(filter);
+      currentFilter = filter;
+    });
+
+    // Keyboard accessibility
+    filterBar.addEventListener('keydown', function(e){
+      var tag = e.target.closest('.filter-tag');
+      if(!tag) return;
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        tag.click();
+      }
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     5. Navigation Scroll Detection
+     ══════════════════════════════════════════════ */
+  function initNavScroll(){
+    var nav = document.querySelector('.nav');
+    if(!nav) return;
+    var ticking = false;
+    function update(){
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }
+    update();
+    window.addEventListener('scroll', function(){
+      if(!ticking){
+        ticking = true;
+        requestAnimationFrame(function(){ update(); ticking = false; });
+      }
+    }, {passive: true});
+  }
+
+  /* ══════════════════════════════════════════════
+     6. Mobile Menu
+     ══════════════════════════════════════════════ */
+  function initMobileMenu(){
+    var toggle = document.querySelector('.nav-toggle');
+    var navLinks = document.querySelector('.nav-links');
+    if(!toggle || !navLinks) return;
+
+    toggle.addEventListener('click', function(){
+      toggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      var isOpen = navLinks.classList.contains('active');
+      toggle.setAttribute('aria-expanded', isOpen.toString());
+    });
+
+    navLinks.querySelectorAll('.nav-link').forEach(function(link){
+      link.addEventListener('click', function(){
+        toggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', function(e){
+      if(!toggle.contains(e.target) && !navLinks.contains(e.target)){
+        toggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     7. Smooth Scroll
+     ══════════════════════════════════════════════ */
+  function initSmoothScroll(){
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+      anchor.addEventListener('click', function(e){
+        var targetId = anchor.getAttribute('href');
+        if(targetId === '#') return;
+        var target = document.querySelector(targetId);
+        if(!target) return;
+        e.preventDefault();
+        var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72;
+        var pos = target.getBoundingClientRect().top + window.scrollY - navH;
+        window.scrollTo({top: pos, behavior: 'smooth'});
+      });
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     8. Copyright Year
+     ══════════════════════════════════════════════ */
+  function updateCopyrightYear(){
+    var el = document.getElementById('copyright-year');
+    if(el) el.textContent = new Date().getFullYear();
+  }
+
+  /* ══════════════════════════════════════════════
+     9. Modal System
+     ══════════════════════════════════════════════ */
+  function initModal(){
+    var overlay = document.getElementById('modal-overlay');
+    var closeBtn = document.getElementById('modal-close');
+    var form = document.getElementById('modal-form');
+    var titleEl = document.getElementById('modal-title');
+    var subtitleEl = document.getElementById('modal-subtitle');
+    var msgLabel = document.getElementById('form-message-label');
+    if(!overlay) return;
+
+    document.querySelectorAll('[data-modal]').forEach(function(link){
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        var type = link.dataset.modal;
+        if(type === 'suggest'){
+          titleEl.textContent = '提交資源建議';
+          subtitleEl.textContent = '分享你發現的優質免費學習資源，讓更多人受益。';
+          msgLabel.textContent = '資源連結與說明';
+        } else if(type === 'feedback'){
+          titleEl.textContent = '意見回饋';
+          subtitleEl.textContent = '你的每一則回饋，都是我們前進的動力。';
+          msgLabel.textContent = '你的回饋';
+        }
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeModal(){
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      form.reset();
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      closeModal();
+      showToast('感謝你的寶貴建議！我們會盡快審核 ✨');
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     10. Toast Notification
+     ══════════════════════════════════════════════ */
+  function showToast(message){
+    var toast = document.getElementById('toast');
+    var msgEl = document.getElementById('toast-message');
+    if(!toast) return;
+    msgEl.textContent = message;
+    toast.classList.add('active');
+    setTimeout(function(){ toast.classList.remove('active'); }, 3500);
+  }
+
+  /* ══════════════════════════════════════════════
+     11. Scroll Reveal (IntersectionObserver)
+     ══════════════════════════════════════════════ */
+  function initScrollReveal(){
+    var reveals = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+      reveals.forEach(function(el){ observer.observe(el); });
+    } else {
+      reveals.forEach(function(el){ el.classList.add('visible'); });
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     ⚡ DOMContentLoaded — 入口
+     ══════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', function(){
+    renderCards();        // 1. Data-driven cards (must be first)
+    CardTiltManager();    // 2. 3D tilt on desktop
+    SmartFilter();        // 3. FLIP filter
+    initNavScroll();      // 4. Nav glassmorphism
+    initMobileMenu();     // 5. Hamburger menu
+    initSmoothScroll();   // 6. Anchor smooth scroll
+    updateCopyrightYear();// 7. Footer year
+    initModal();          // 8. Modal system
+    initScrollReveal();   // 9. Scroll animations
+  });
+
+})();
+  </script>
+</body>
+</html>

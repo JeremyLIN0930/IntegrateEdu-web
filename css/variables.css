@@ -1,0 +1,204 @@
+/* ============================================================
+   🎨 設計系統 — Design Tokens (variables.css)
+   ============================================================
+   色彩規範：
+   - 基底：乾淨白色 #FAFAFA
+   - 主色：Tiffany 綠（清新、信任、教育）
+   - 強調色：珊瑚色（溫暖、陪伴、攝影暖調）
+   
+   命名慣例：
+   --color-*   色彩
+   --font-*    字型
+   --space-*   間距
+   --shadow-*  陰影
+   --radius-*  圓角
+   --ease-*    動畫緩動
+   --duration-* 動畫時長
+   ============================================================ */
+
+:root {
+  /* ── 色彩系統 (Color System) ── */
+
+  /* 主色：Tiffany 綠（漸層級距） */
+  --color-primary:         #0ABAB5;
+  --color-primary-dark:    #089E9A;
+  --color-primary-light:   #81D8D0;
+  --color-primary-lighter: #B2F0EC;
+  --color-primary-bg:      #E8F8F5;
+  --color-primary-rgb:     10, 186, 181;   /* 用於 rgba() */
+
+  /* 強調色：珊瑚 / 暖色 */
+  --color-accent:          #FF6B6B;
+  --color-accent-dark:     #E85D5D;
+  --color-accent-light:    #FF8E8E;
+  --color-accent-bg:       #FFF0F0;
+  --color-accent-rgb:      255, 107, 107;
+
+  /* 中性色：背景與表面 */
+  --color-bg:              #FAFAFA;
+  --color-surface:         #FFFFFF;
+  --color-surface-hover:   #F5F5F5;
+  --color-border:          #E0E6E9;
+  --color-border-light:    #F0F3F4;
+
+  /* 文字色階 */
+  --color-text:            #2D3436;
+  --color-text-secondary:  #636E72;
+  --color-text-light:      #95A5A6;
+  --color-text-inverse:    #FFFFFF;
+
+  /* 語意色彩 */
+  --color-success:         #00B894;
+  --color-warning:         #FDCB6E;
+  --color-error:           #E17055;
+  --color-info:            #74B9FF;
+
+
+  /* ── 字型系統 (Typography) ── */
+  
+  /* 
+     Noto Sans TC：繁體中文主字型（Google 免費）
+     Inter：英數字型（現代幾何無襯線）
+     system-ui：系統後備字型
+  */
+  --font-family-primary:   'Noto Sans TC', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-display:   'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  --font-family-mono:      'JetBrains Mono', 'Fira Code', monospace;
+
+  /* 字級階層（基於 1.25 倍率 Major Third） */
+  --font-size-xs:    0.75rem;    /* 12px */
+  --font-size-sm:    0.875rem;   /* 14px */
+  --font-size-base:  1rem;       /* 16px */
+  --font-size-md:    1.125rem;   /* 18px */
+  --font-size-lg:    1.25rem;    /* 20px */
+  --font-size-xl:    1.5rem;     /* 24px */
+  --font-size-2xl:   2rem;       /* 32px */
+  --font-size-3xl:   2.5rem;     /* 40px */
+  --font-size-4xl:   3.25rem;    /* 52px */
+  --font-size-hero:  4rem;       /* 64px — Hero 大標 */
+
+  /* 字重 */
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semi:    600;
+  --font-weight-bold:    700;
+  --font-weight-black:   900;
+
+  /* 行高 */
+  --line-height-tight:   1.2;
+  --line-height-normal:  1.6;
+  --line-height-relaxed: 1.8;
+
+  /* 字距 */
+  --letter-spacing-tight:  -0.02em;
+  --letter-spacing-normal:  0;
+  --letter-spacing-wide:    0.05em;
+  --letter-spacing-wider:   0.1em;
+
+
+  /* ── 間距系統 (Spacing — 8px Grid) ── */
+  --space-1:   0.25rem;   /*  4px */
+  --space-2:   0.5rem;    /*  8px */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.5rem;    /* 24px */
+  --space-6:   2rem;      /* 32px */
+  --space-8:   3rem;      /* 48px */
+  --space-10:  4rem;      /* 64px */
+  --space-12:  5rem;      /* 80px */
+  --space-16:  8rem;      /* 128px */
+  --space-section: 6rem;  /* 區段垂直間距 */
+
+
+  /* ── 圓角系統 (Border Radius) ── */
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    16px;
+  --radius-xl:    24px;
+  --radius-full:  9999px;
+
+
+  /* ── 陰影系統 (Shadows) ── */
+  
+  /* 基礎陰影（亮色背景） */
+  --shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.10);
+  --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.12);
+
+  /* 品牌色陰影（用於 CTA 按鈕等） */
+  --shadow-primary:  0 4px 20px rgba(var(--color-primary-rgb), 0.3);
+  --shadow-accent:   0 4px 20px rgba(var(--color-accent-rgb), 0.25);
+
+  /* 毛玻璃卡片懸浮陰影 */
+  --shadow-card:       0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+
+
+  /* ── 毛玻璃 Glassmorphism ── */
+  --glass-bg:          rgba(255, 255, 255, 0.72);
+  --glass-bg-strong:   rgba(255, 255, 255, 0.88);
+  --glass-border:      rgba(255, 255, 255, 0.6);
+  --glass-blur:        20px;
+  --glass-blur-strong: 30px;
+
+
+  /* ── 動畫時間函數 (Easing) ── */
+  
+  /* 
+     自然阻尼回彈：cubic-bezier(0.23, 1, 0.32, 1)
+     靈感來源：物理彈簧阻尼模型
+     特性：快速啟動 → 緩慢減速 → 優雅停止
+  */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-back:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out-soft: cubic-bezier(0.45, 0, 0.15, 1);
+  --ease-spring:      cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* 動畫時長 */
+  --duration-fast:    150ms;
+  --duration-normal:  300ms;
+  --duration-slow:    500ms;
+  --duration-slower:  800ms;
+  --duration-filter:  600ms;  /* 篩選器重排動畫 */
+
+
+  /* ── 佈局 (Layout) ── */
+  --container-max:     1200px;
+  --container-padding: var(--space-5);
+  --nav-height:        72px;
+  --card-min-width:    300px;
+  --card-max-width:    380px;
+
+
+  /* ── Z-Index 層級 ── */
+  --z-canvas:     0;
+  --z-content:    1;
+  --z-card:       10;
+  --z-nav:        100;
+  --z-modal:      1000;
+}
+
+
+/* ── 響應式字級調整 ── */
+@media (max-width: 768px) {
+  :root {
+    --font-size-hero:  2.5rem;
+    --font-size-4xl:   2rem;
+    --font-size-3xl:   1.75rem;
+    --font-size-2xl:   1.5rem;
+    --space-section:   4rem;
+    --container-padding: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-hero:  2rem;
+    --font-size-4xl:   1.75rem;
+    --font-size-3xl:   1.5rem;
+    --nav-height:      60px;
+  }
+}
