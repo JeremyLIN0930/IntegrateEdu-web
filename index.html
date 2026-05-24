@@ -531,6 +531,147 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 }
 
 /* ══════════════════════════════════════════════
+   Resource Detail Modal — Glassmorphism
+   ══════════════════════════════════════════════ */
+.rd-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  z-index: var(--z-modal); display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.rd-overlay.active { opacity: 1; visibility: visible; }
+
+.rd-card {
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--radius-lg); overflow: hidden;
+  max-width: 520px; width: 100%;
+  max-height: 90vh; max-height: 90dvh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.3) inset;
+  transform: translateY(24px) scale(0.96);
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  position: relative;
+}
+.rd-overlay.active .rd-card {
+  transform: translateY(0) scale(1);
+}
+
+/* ── Close ── */
+.rd-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; color: var(--gray-700); cursor: pointer;
+  z-index: 5; transition: var(--transition-fast);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.rd-close:hover { background: var(--gray-100); transform: rotate(90deg); }
+
+/* ── Hero Image ── */
+.rd-hero {
+  position: relative; width: 100%; aspect-ratio: 16/9;
+  overflow: hidden; flex-shrink: 0;
+}
+.rd-hero img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.rd-overlay.active .rd-hero img { transform: scale(1.03); }
+.rd-category {
+  position: absolute; bottom: 16px; left: 16px;
+  padding: 5px 14px; border-radius: 14px;
+  font-size: 0.78rem; font-weight: 600; color: #fff;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.rd-category[data-cat="design"]  { background: rgba(10,186,181,0.88); }
+.rd-category[data-cat="code"]    { background: rgba(99,102,241,0.88); }
+.rd-category[data-cat="language"]{ background: rgba(245,158,11,0.88); }
+.rd-category[data-cat="art"]     { background: rgba(236,72,153,0.88); }
+.rd-category[data-cat="exam"]    { background: rgba(16,185,129,0.88); }
+.rd-category[data-cat="science"] { background: rgba(59,130,246,0.88); }
+
+/* ── Body ── */
+.rd-body {
+  padding: 28px 28px 24px;
+  overflow-y: auto; flex: 1;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+.rd-platform {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--tiffany); margin-bottom: 8px;
+}
+.rd-platform-logo { width: 20px; height: 20px; display: flex; align-items: center; }
+.rd-platform-logo svg { width: 20px; height: 20px; }
+.rd-title {
+  font-size: 1.35rem; font-weight: 800; color: var(--dark);
+  line-height: 1.35; margin-bottom: 12px;
+}
+.rd-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.rd-tag {
+  font-size: 0.72rem; padding: 4px 12px; border-radius: 12px;
+  background: var(--tiffany-light); color: var(--tiffany-dark); font-weight: 600;
+}
+.rd-divider {
+  width: 40px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--tiffany), var(--tiffany-dark));
+  margin-bottom: 18px;
+}
+.rd-desc {
+  font-size: 0.95rem; line-height: 1.9; color: var(--gray-700);
+  margin-bottom: 24px; letter-spacing: 0.01em;
+}
+
+/* ── CTA Button ── */
+.rd-cta-wrap {
+  padding: 0 28px 28px;
+  flex-shrink: 0;
+}
+.rd-cta {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 15px 24px; border: none; border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--tiffany), var(--tiffany-dark));
+  color: #fff; font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: var(--transition-smooth);
+  box-shadow: 0 6px 24px var(--tiffany-glow);
+  font-family: var(--font-primary);
+}
+.rd-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--tiffany-glow);
+  filter: brightness(1.06);
+}
+.rd-cta-logo { width: 22px; height: 22px; display: flex; align-items: center; flex-shrink: 0; }
+.rd-cta-logo svg { width: 22px; height: 22px; }
+
+/* ── RWD ── */
+@media (max-width: 576px) {
+  .rd-overlay { padding: 10px; align-items: flex-end; }
+  .rd-card {
+    max-width: 100%; width: 100%;
+    max-height: 95vh; max-height: 95dvh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  .rd-hero { aspect-ratio: 16/8; }
+  .rd-body { padding: 22px 20px 16px; }
+  .rd-title { font-size: 1.15rem; }
+  .rd-desc { font-size: 0.9rem; line-height: 1.8; }
+  .rd-cta-wrap { padding: 0 20px 20px; }
+  .rd-cta { padding: 14px 20px; font-size: 0.9rem; }
+}
+@media (max-width: 768px) and (min-width: 577px) {
+  .rd-card { max-width: 480px; }
+}
+
+/* ══════════════════════════════════════════════
    Animations & Scroll Reveal
    ══════════════════════════════════════════════ */
 @keyframes scrollPulse {
@@ -743,6 +884,33 @@ textarea.form-input { min-height: 100px; resize: vertical; }
     <span id="toast-message">感謝你的建議！我們會盡快審核。</span>
   </div>
 
+  <!-- 📖 Resource Detail Modal -->
+  <div class="rd-overlay" id="rd-overlay" role="dialog" aria-modal="true" aria-labelledby="rd-title">
+    <div class="rd-card">
+      <button class="rd-close" id="rd-close" aria-label="關閉資源介紹">✕</button>
+      <div class="rd-hero">
+        <img id="rd-image" src="" alt="">
+        <span class="rd-category" id="rd-category"></span>
+      </div>
+      <div class="rd-body">
+        <div class="rd-platform">
+          <span class="rd-platform-logo" id="rd-platform-logo"></span>
+          <span id="rd-platform"></span>
+        </div>
+        <h3 class="rd-title" id="rd-title"></h3>
+        <div class="rd-tags" id="rd-tags"></div>
+        <div class="rd-divider" aria-hidden="true"></div>
+        <p class="rd-desc" id="rd-desc"></p>
+      </div>
+      <div class="rd-cta-wrap">
+        <a class="rd-cta" id="rd-cta" href="" target="_blank" rel="noopener noreferrer">
+          <span class="rd-cta-logo" id="rd-cta-logo"></span>
+          <span>確認前往外部學習網站 →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════
        📜 JavaScript — 全部內嵌
        ═══════════════════════════════════════════ -->
@@ -863,6 +1031,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'figma', platform:'Figma',
       title:'Figma — 免費協作 UI 設計工具',
       description:'業界標準的介面設計工具，免費版已含強大的即時協作功能。從零開始學習 UI/UX 設計的最佳起點。',
+      extendedDesc:'Figma 是目前全球 UI/UX 設計師最仰賴的雲端協作工具，免費版即可建立無限個人專案。它最大的亮點在於「即時多人協作」——你可以和夥伴同時編輯同一份設計稿，搭配強大的元件系統（Components）與自動佈局（Auto Layout），從線框稿到高保真原型一氣呵成。無論你是剛踏入設計領域的學生，還是想快速驗證想法的創業者，Figma 都是零成本起步的最佳選擇。',
       category:'design', categoryLabel:'🎨 設計',
       tags:['UI設計','免費工具'],
       image:'assets/images/card-design.png',
@@ -872,6 +1041,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'canva', platform:'Canva',
       title:'Canva — 零門檻視覺設計平台',
       description:'拖拉式操作，數千種免費模板。不懂設計也能快速產出專業的社群貼文、簡報、海報。',
+      extendedDesc:'Canva 讓「不會設計」不再是阻礙你的理由。平台內建數十萬套由專業設計師打造的免費模板，涵蓋社群貼文、簡報、履歷、海報等各種場景，只需拖拉替換文字與圖片，幾分鐘就能產出視覺精緻的作品。它更支援團隊協作、品牌色彩管理，甚至能直接匯出影片與動畫。特別推薦給需要經常製作視覺素材的學生社團、自媒體經營者，以及所有想讓報告更有質感的人。',
       category:'design', categoryLabel:'🎨 設計',
       tags:['平面設計','模板'],
       image:'assets/images/card-art.png',
@@ -881,6 +1051,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'freecodecamp', platform:'freeCodeCamp',
       title:'freeCodeCamp — 完全免費的程式學習',
       description:'超過 8,000 小時的免費課程與認證，涵蓋網頁開發、Python、資料科學等熱門領域。',
+      extendedDesc:'freeCodeCamp 是全球最大的免費程式學習社群，提供超過 8,000 小時的互動式課程，完成後還能獲得正式的開發者認證。課程路徑從基礎的 HTML/CSS 開始，一路延伸到 JavaScript、React、Node.js、Python 資料科學與機器學習。最棒的是，所有學習都以「實作專案」為導向——你不只是看影片，而是直接動手寫程式碼。適合每一位想從零開始建立紮實程式能力的自主學習者。',
       category:'code', categoryLabel:'💻 程式',
       tags:['網頁開發','認證'],
       image:'assets/images/card-programming.png',
@@ -890,6 +1061,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'scratch', platform:'MIT Scratch',
       title:'Scratch — 視覺化積木程式語言',
       description:'MIT 開發的視覺化程式語言，用拖拉積木的方式學寫程式，最適合初學者與青少年入門。',
+      extendedDesc:'Scratch 由 MIT 媒體實驗室開發，是全球最受歡迎的兒童與青少年程式入門平台。它採用直覺的「拖拉積木」介面，不需要記住任何語法，就能創作互動故事、動畫和遊戲。在創作的過程中，學習者自然而然地建立了「邏輯思維」與「計算思維」的基礎。平台更擁有龐大的全球社群，你可以瀏覽數百萬個他人的專案、改編並分享自己的作品。適合 8 歲以上的初學者，也是親子共學程式的絕佳起點。',
       category:'code', categoryLabel:'💻 程式',
       tags:['入門友善','遊戲化'],
       image:'assets/images/card-science.png',
@@ -899,6 +1071,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'duolingo', platform:'Duolingo',
       title:'Duolingo — 遊戲化語言學習',
       description:'全球最受歡迎的免費語言學習 App，支援超過 40 種語言，用遊戲機制讓學習變得有趣。',
+      extendedDesc:'Duolingo 將語言學習變成了一場令人上癮的遊戲冒險。每天只需 5 到 15 分鐘，透過聽、說、讀、寫四大核心訓練，搭配經驗值、連續天數、排行榜等遊戲化機制，讓學習不再枯燥。它支援超過 40 種語言，包括英、日、韓、法、西班牙語等熱門選擇。AI 驅動的個人化學習路徑會根據你的進度調整難度，確保每一分鐘都有效率。適合想輕鬆開始學新語言的任何人。',
       category:'language', categoryLabel:'📖 語文',
       tags:['多語言','遊戲化'],
       image:'assets/images/card-language.png',
@@ -908,6 +1081,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'voicetube', platform:'VoiceTube',
       title:'VoiceTube — 看影片學英文',
       description:'透過 TED、電影片段等真實影片學英文，搭配即時字幕、口說練習功能，沉浸式提升英語能力。',
+      extendedDesc:'VoiceTube 是台灣團隊打造的英語學習平台，收錄了 TED 演講、電影片段、新聞報導等數萬部真實影片作為教材。每部影片都搭配中英雙語字幕、單字即時查詢、口說錄音比對功能，讓你在沉浸式的情境中自然吸收道地英文。平台會根據你的程度推薦適合的內容，從初階到進階一應俱全。特別適合對傳統教科書感到乏味、想透過真實語境提升英語聽力與口說能力的學習者。',
       category:'language', categoryLabel:'📖 語文',
       tags:['英語','影片學習'],
       image:'assets/images/card-language.png',
@@ -917,6 +1091,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'musescore', platform:'MuseScore',
       title:'MuseScore — 免費樂譜創作工具',
       description:'開源的專業樂譜編輯軟體，免費使用所有核心功能。適合音樂創作者、學生與教師。',
+      extendedDesc:'MuseScore 是一套完全免費且開源的專業樂譜編輯軟體，功能足以媲美付費商業軟體。你可以用它記譜、編曲、移調，並即時播放聆聽效果。它支援匯出 PDF、MIDI、MusicXML 等多種格式，方便與老師或樂團成員分享。社群更提供超過百萬份免費樂譜下載。無論你是正在學習樂理的音樂系學生、想為樂團編曲的創作者，還是需要製作教學講義的教師，MuseScore 都能滿足你的需求。',
       category:'art', categoryLabel:'🎭 藝術',
       tags:['音樂','開源'],
       image:'assets/images/card-art.png',
@@ -926,6 +1101,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'pixlr', platform:'Pixlr',
       title:'Pixlr — 免費線上圖片編輯器',
       description:'功能強大的線上影像編輯工具，免費版提供專業級修圖、去背、濾鏡等功能，無需安裝軟體。',
+      extendedDesc:'Pixlr 是一款直接在瀏覽器中使用的專業級圖片編輯器，免費版即提供圖層編輯、一鍵去背、濾鏡特效、文字工具等核心功能，完全不需要安裝任何軟體。它特別適合在學校電腦或公用裝置上使用——打開網頁就能開始修圖。介面直覺清晰，對於還不熟悉 Photoshop 的學生來說是絕佳的過渡工具。適合需要快速修圖、製作報告插圖、或經營社群媒體的學習者。',
       category:'art', categoryLabel:'🎭 藝術',
       tags:['修圖','線上工具'],
       image:'assets/images/card-art.png',
@@ -935,6 +1111,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'junyi', platform:'均一教育平台',
       title:'均一 — 最懂台灣學生的教育平台',
       description:'由財團法人均一平台教育基金會營運，完全免費，提供國小到高中完整課程影片與互動練習。',
+      extendedDesc:'均一教育平台是台灣最具影響力的免費教育資源，由均一平台教育基金會營運，完全對應台灣 108 課綱。平台提供國小到高中的數學、自然、社會、英文等完整課程影片，每部影片搭配即時互動練習題，系統會根據你的答題狀況自動調整出題難度，實現真正的「個人化學習」。對於需要課後複習、超前預習、或備戰考試的台灣學生來說，均一是最貼近在地需求的免費學伴。',
       category:'exam', categoryLabel:'📝 升學',
       tags:['K-12','台灣課綱'],
       image:'assets/images/card-exam.png',
@@ -944,6 +1121,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'coolenglish', platform:'CoolEnglish',
       title:'Cool English — 教育部英語學習平台',
       description:'教育部建置的免費英語學習資源網，涵蓋聽說讀寫四大技能，搭配遊戲化練習機制。',
+      extendedDesc:'Cool English 是教育部專為台灣中小學生打造的免費英語學習平台，涵蓋聽力、口說、閱讀、寫作四大技能。平台融入了遊戲化的闖關機制與排行榜，讓練習英文不再無聊。它更提供全民英檢（GEPT）、多益（TOEIC）等考試的模擬練習，幫助學生提前熟悉題型。所有內容皆由教育專家審核，品質有保障。特別推薦給想加強課外英文能力、準備英語檢定，或喜歡用遊戲方式學習的國高中生。',
       category:'exam', categoryLabel:'📝 升學',
       tags:['英文','官方資源'],
       image:'assets/images/card-exam.png',
@@ -953,6 +1131,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'khanacademy', platform:'Khan Academy',
       title:'Khan Academy — 全球化免費教育',
       description:'由 Sal Khan 創辦的非營利組織，提供數學、科學、經濟等完整課程，支援多國語言。',
+      extendedDesc:'Khan Academy 是由 Sal Khan 於 2008 年創辦的非營利線上教育平台，願景是「為任何人、任何地方提供免費的世界級教育」。平台涵蓋數學（從基礎算術到微積分）、物理、化學、生物、經濟學、程式設計等學科，每個知識點都有清晰的講解影片與大量練習題。獨特的「精熟學習」（Mastery Learning）機制確保你真正理解後才進入下一階段。支援多國語言介面，是全球數千萬學習者信賴的教育夥伴。',
       category:'science', categoryLabel:'🔬 科學',
       tags:['數理','國際化'],
       image:'assets/images/card-science.png',
@@ -962,6 +1141,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       id:'phet', platform:'PhET Simulations',
       title:'PhET — 互動式科學模擬實驗',
       description:'科羅拉多大學開發的免費互動模擬，涵蓋物理、化學、生物等學科，讓抽象概念視覺化。',
+      extendedDesc:'PhET 互動式模擬實驗由科羅拉多大學波德分校開發，提供超過 160 個涵蓋物理、化學、生物、地球科學與數學的免費互動模擬。你可以拖拉電路元件搭建電路、調整重力觀察拋體運動、或操控分子觀察化學反應——所有實驗都在瀏覽器中即時運行，無需任何安裝。每個模擬都經過教育研究驗證，確保能有效幫助學習者建立直覺理解。特別適合覺得理科「太抽象」的學生，讓你親手操作並「看見」科學原理。',
       category:'science', categoryLabel:'🔬 科學',
       tags:['模擬實驗','視覺化'],
       image:'assets/images/card-science.png',
@@ -1000,7 +1180,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
         tagsHtml += '<span class="card-tag-item">' + r.tags[j] + '</span>';
       }
       html +=
-        '<article class="resource-card" data-category="' + r.category + '" role="listitem">' +
+        '<article class="resource-card" data-category="' + r.category + '" data-id="' + r.id + '" role="listitem" tabindex="0" aria-label="點擊查看 ' + r.platform + ' 的詳細介紹">' +
           '<div class="card-image-wrap">' +
             '<img src="' + r.image + '" alt="' + r.title + '" loading="lazy">' +
             '<span class="card-category-tag" data-cat="' + r.category + '">' + r.categoryLabel + '</span>' +
@@ -1011,15 +1191,110 @@ textarea.form-input { min-height: 100px; resize: vertical; }
             '<p class="card-desc">' + r.description + '</p>' +
             '<div class="card-footer">' +
               '<div class="card-tags">' + tagsHtml + '</div>' +
-              '<a href="' + r.url + '" target="_blank" rel="noopener noreferrer" class="card-link" onclick="event.stopPropagation()">' +
+              '<button type="button" class="card-link" data-id="' + r.id + '">' +
                 '<span class="card-link-logo">' + getBrandLogo(r.logo) + '</span>' +
-                '前往學習' +
-              '</a>' +
+                '查看詳情' +
+              '</button>' +
             '</div>' +
           '</div>' +
         '</article>';
     }
     grid.innerHTML = html;
+  }
+
+  /* ── Resource ID Lookup Map ── */
+  var RESOURCE_MAP = {};
+  (function buildMap(){
+    for(var i = 0; i < RESOURCES.length; i++){
+      RESOURCE_MAP[RESOURCES[i].id] = RESOURCES[i];
+    }
+  })();
+
+  /* ══════════════════════════════════════════════
+     Resource Detail Modal Controller
+     ══════════════════════════════════════════════ */
+  function openResourceDetail(id){
+    var r = RESOURCE_MAP[id];
+    if(!r) return;
+
+    var overlay   = document.getElementById('rd-overlay');
+    var imgEl     = document.getElementById('rd-image');
+    var catEl     = document.getElementById('rd-category');
+    var logoEl    = document.getElementById('rd-platform-logo');
+    var platEl    = document.getElementById('rd-platform');
+    var titleEl   = document.getElementById('rd-title');
+    var tagsEl    = document.getElementById('rd-tags');
+    var descEl    = document.getElementById('rd-desc');
+    var ctaEl     = document.getElementById('rd-cta');
+    var ctaLogoEl = document.getElementById('rd-cta-logo');
+
+    /* Inject data */
+    imgEl.src = r.image;
+    imgEl.alt = r.title;
+    catEl.textContent = r.categoryLabel;
+    catEl.setAttribute('data-cat', r.category);
+    logoEl.innerHTML = getBrandLogo(r.logo);
+    platEl.textContent = r.platform;
+    titleEl.textContent = r.title;
+    descEl.textContent = r.extendedDesc || r.description;
+    ctaEl.href = r.url;
+    ctaLogoEl.innerHTML = getBrandLogo(r.logo);
+
+    /* Tags */
+    var tagsHtml = '';
+    for(var i = 0; i < r.tags.length; i++){
+      tagsHtml += '<span class="rd-tag">' + r.tags[i] + '</span>';
+    }
+    tagsEl.innerHTML = tagsHtml;
+
+    /* Show */
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    /* Scroll body of modal to top */
+    var body = overlay.querySelector('.rd-body');
+    if(body) body.scrollTop = 0;
+  }
+
+  function closeResourceDetail(){
+    var overlay = document.getElementById('rd-overlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function initResourceModal(){
+    var overlay  = document.getElementById('rd-overlay');
+    var closeBtn = document.getElementById('rd-close');
+    var grid     = document.getElementById('card-grid');
+    if(!overlay || !grid) return;
+
+    /* Delegate click on card grid */
+    grid.addEventListener('click', function(e){
+      /* If user clicked the CTA link inside detail modal, let it pass */
+      var card = e.target.closest('.resource-card');
+      if(!card) return;
+      e.preventDefault();
+      var id = card.dataset.id;
+      if(id) openResourceDetail(id);
+    });
+
+    /* Keyboard: Enter on card */
+    grid.addEventListener('keydown', function(e){
+      if(e.key !== 'Enter') return;
+      var card = e.target.closest('.resource-card');
+      if(!card) return;
+      var id = card.dataset.id;
+      if(id) openResourceDetail(id);
+    });
+
+    /* Close */
+    closeBtn.addEventListener('click', closeResourceDetail);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay) closeResourceDetail();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && overlay.classList.contains('active')) closeResourceDetail();
+    });
   }
 
   /* ══════════════════════════════════════════════
@@ -1364,15 +1639,16 @@ textarea.form-input { min-height: 100px; resize: vertical; }
      ⚡ DOMContentLoaded — 入口
      ══════════════════════════════════════════════ */
   document.addEventListener('DOMContentLoaded', function(){
-    renderCards();        // 1. Data-driven cards (must be first)
-    CardTiltManager();    // 2. 3D tilt on desktop
-    SmartFilter();        // 3. FLIP filter
-    initNavScroll();      // 4. Nav glassmorphism
-    initMobileMenu();     // 5. Hamburger menu
-    initSmoothScroll();   // 6. Anchor smooth scroll
-    updateCopyrightYear();// 7. Footer year
-    initModal();          // 8. Modal system
-    initScrollReveal();   // 9. Scroll animations
+    renderCards();         // 1. Data-driven cards (must be first)
+    CardTiltManager();     // 2. 3D tilt on desktop
+    SmartFilter();         // 3. FLIP filter
+    initNavScroll();       // 4. Nav glassmorphism
+    initMobileMenu();      // 5. Hamburger menu
+    initSmoothScroll();    // 6. Anchor smooth scroll
+    updateCopyrightYear(); // 7. Footer year
+    initModal();           // 8. Modal system (feedback/suggest)
+    initResourceModal();   // 9. Resource detail modal
+    initScrollReveal();    // 10. Scroll animations
   });
 
 })();
