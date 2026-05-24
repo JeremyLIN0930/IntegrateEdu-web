@@ -531,144 +531,286 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 }
 
 /* ══════════════════════════════════════════════
-   Resource Detail Modal — Glassmorphism
+   📖 嚴選學習資源詳細導讀彈窗 (Glassmorphism & Editorial UI)
    ══════════════════════════════════════════════ */
-.rd-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  z-index: var(--z-modal); display: flex; align-items: center; justify-content: center;
+.rd-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 46, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 24px;
-  opacity: 0; visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+              visibility 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.rd-overlay.active { opacity: 1; visibility: visible; }
-
-.rd-card {
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  border-radius: var(--radius-lg); overflow: hidden;
-  max-width: 520px; width: 100%;
-  max-height: 90vh; max-height: 90dvh;
-  display: flex; flex-direction: column;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.3) inset;
-  transform: translateY(24px) scale(0.96);
-  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+.rd-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.rd-modal-card {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(10, 186, 181, 0.2);
+  border-radius: 24px;
+  overflow: hidden;
+  max-width: 580px;
+  width: 100%;
+  max-height: 85vh;
+  max-height: 85dvh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 70px rgba(10, 186, 181, 0.12), 
+              0 10px 30px rgba(0, 0, 0, 0.04);
+  transform: scale(0.95) translateY(30px);
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.2, 1.1);
   position: relative;
 }
-.rd-overlay.active .rd-card {
-  transform: translateY(0) scale(1);
+.rd-modal-overlay.active .rd-modal-card {
+  transform: scale(1) translateY(0);
 }
-
-/* ── Close ── */
-.rd-close {
-  position: absolute; top: 14px; right: 14px;
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.5);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.15rem; color: var(--gray-700); cursor: pointer;
-  z-index: 5; transition: var(--transition-fast);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+.rd-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(10, 186, 181, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #495057;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-.rd-close:hover { background: var(--gray-100); transform: rotate(90deg); }
-
-/* ── Hero Image ── */
-.rd-hero {
-  position: relative; width: 100%; aspect-ratio: 16/9;
-  overflow: hidden; flex-shrink: 0;
+.rd-modal-close:hover {
+  background: #E0F7F6;
+  color: #089A96;
+  border-color: rgba(10, 186, 181, 0.3);
+  transform: rotate(90deg) scale(1.05);
 }
-.rd-hero img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+.rd-modal-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(10, 186, 181, 0.1);
 }
-.rd-overlay.active .rd-hero img { transform: scale(1.03); }
-.rd-category {
-  position: absolute; bottom: 16px; left: 16px;
-  padding: 5px 14px; border-radius: 14px;
-  font-size: 0.78rem; font-weight: 600; color: #fff;
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+.rd-modal-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.rd-category[data-cat="design"]  { background: rgba(10,186,181,0.88); }
-.rd-category[data-cat="code"]    { background: rgba(99,102,241,0.88); }
-.rd-category[data-cat="language"]{ background: rgba(245,158,11,0.88); }
-.rd-category[data-cat="art"]     { background: rgba(236,72,153,0.88); }
-.rd-category[data-cat="exam"]    { background: rgba(16,185,129,0.88); }
-.rd-category[data-cat="science"] { background: rgba(59,130,246,0.88); }
-
-/* ── Body ── */
-.rd-body {
-  padding: 28px 28px 24px;
-  overflow-y: auto; flex: 1;
+.rd-modal-overlay.active .rd-modal-hero img {
+  transform: scale(1);
+}
+.rd-modal-category {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.rd-modal-category[data-cat="design"]  { background: rgba(10, 186, 181, 0.85); }
+.rd-modal-category[data-cat="code"]    { background: rgba(99, 102, 241, 0.85); }
+.rd-modal-category[data-cat="language"]{ background: rgba(245, 158, 11, 0.85); }
+.rd-modal-category[data-cat="art"]     { background: rgba(236, 72, 153, 0.85); }
+.rd-modal-category[data-cat="exam"]    { background: rgba(16, 185, 129, 0.85); }
+.rd-modal-category[data-cat="science"] { background: rgba(59, 130, 246, 0.85); }
+.rd-modal-body {
+  padding: 32px 32px 24px;
+  overflow-y: auto;
+  flex: 1;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }
-.rd-platform {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--tiffany); margin-bottom: 8px;
+.rd-modal-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #089A96;
+  margin-bottom: 10px;
 }
-.rd-platform-logo { width: 20px; height: 20px; display: flex; align-items: center; }
-.rd-platform-logo svg { width: 20px; height: 20px; }
-.rd-title {
-  font-size: 1.35rem; font-weight: 800; color: var(--dark);
-  line-height: 1.35; margin-bottom: 12px;
+.rd-modal-platform-logo {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.rd-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
-.rd-tag {
-  font-size: 0.72rem; padding: 4px 12px; border-radius: 12px;
-  background: var(--tiffany-light); color: var(--tiffany-dark); font-weight: 600;
+.rd-modal-platform-logo svg {
+  width: 100%;
+  height: 100%;
 }
-.rd-divider {
-  width: 40px; height: 3px; border-radius: 2px;
-  background: linear-gradient(90deg, var(--tiffany), var(--tiffany-dark));
-  margin-bottom: 18px;
+.rd-modal-title {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #1A1A2E;
+  line-height: 1.35;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
 }
-.rd-desc {
-  font-size: 0.95rem; line-height: 1.9; color: var(--gray-700);
-  margin-bottom: 24px; letter-spacing: 0.01em;
+.rd-modal-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
-
-/* ── CTA Button ── */
-.rd-cta-wrap {
-  padding: 0 28px 28px;
+.rd-modal-tags span {
+  font-size: 0.72rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #E0F7F6;
+  color: #089A96;
+  font-weight: 600;
+}
+.rd-modal-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(10, 186, 181, 0.25), rgba(10, 186, 181, 0.05));
+  margin-bottom: 24px;
+}
+.rd-modal-editorial {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.rd-editorial-section {
+  background: rgba(248, 249, 250, 0.6);
+  border-left: 3px solid #0ABAB5;
+  padding: 12px 18px;
+  border-radius: 0 12px 12px 0;
+}
+.rd-editorial-subtitle {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rd-editorial-text {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: #495057;
+}
+.highlight-time {
+  font-weight: 700;
+  color: #089A96;
+  background: rgba(10, 186, 181, 0.08);
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+.rd-modal-footer {
+  padding: 20px 32px 32px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.95) 30%);
+}
+.rd-modal-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 28px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0ABAB5, #089A96);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(10, 186, 181, 0.25);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.rd-modal-cta:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px rgba(10, 186, 181, 0.35);
+  filter: brightness(1.05);
+}
+.rd-modal-cta:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 6px 16px rgba(10, 186, 181, 0.2);
+}
+.rd-modal-cta-logo {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
-.rd-cta {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; padding: 15px 24px; border: none; border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--tiffany), var(--tiffany-dark));
-  color: #fff; font-size: 0.95rem; font-weight: 700;
-  cursor: pointer; text-decoration: none;
-  transition: var(--transition-smooth);
-  box-shadow: 0 6px 24px var(--tiffany-glow);
-  font-family: var(--font-primary);
+.rd-modal-cta-logo svg {
+  width: 100%;
+  height: 100%;
 }
-.rd-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px var(--tiffany-glow);
-  filter: brightness(1.06);
-}
-.rd-cta-logo { width: 22px; height: 22px; display: flex; align-items: center; flex-shrink: 0; }
-.rd-cta-logo svg { width: 22px; height: 22px; }
-
-/* ── RWD ── */
 @media (max-width: 576px) {
-  .rd-overlay { padding: 10px; align-items: flex-end; }
-  .rd-card {
-    max-width: 100%; width: 100%;
-    max-height: 95vh; max-height: 95dvh;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  .rd-modal-overlay {
+    padding: 12px;
+    align-items: flex-end;
   }
-  .rd-hero { aspect-ratio: 16/8; }
-  .rd-body { padding: 22px 20px 16px; }
-  .rd-title { font-size: 1.15rem; }
-  .rd-desc { font-size: 0.9rem; line-height: 1.8; }
-  .rd-cta-wrap { padding: 0 20px 20px; }
-  .rd-cta { padding: 14px 20px; font-size: 0.9rem; }
+  .rd-modal-card {
+    max-width: 95%;
+    width: 95%;
+    margin: 0 auto;
+    max-height: 90vh;
+    max-height: 90dvh;
+    border-radius: 20px;
+  }
+  .rd-modal-hero {
+    aspect-ratio: 16/10;
+  }
+  .rd-modal-body {
+    padding: 24px 20px 16px;
+  }
+  .rd-modal-title {
+    font-size: 1.25rem;
+  }
+  .rd-modal-editorial {
+    gap: 16px;
+  }
+  .rd-editorial-section {
+    padding: 10px 14px;
+  }
+  .rd-modal-footer {
+    padding: 16px 20px 24px;
+  }
+  .rd-modal-cta {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
 }
 @media (max-width: 768px) and (min-width: 577px) {
-  .rd-card { max-width: 480px; }
+  .rd-modal-card { max-width: 480px; }
 }
 
 /* ══════════════════════════════════════════════
@@ -885,26 +1027,45 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   </div>
 
   <!-- 📖 Resource Detail Modal -->
-  <div class="rd-overlay" id="rd-overlay" role="dialog" aria-modal="true" aria-labelledby="rd-title">
-    <div class="rd-card">
-      <button class="rd-close" id="rd-close" aria-label="關閉資源介紹">✕</button>
-      <div class="rd-hero">
-        <img id="rd-image" src="" alt="">
-        <span class="rd-category" id="rd-category"></span>
+  <div class="rd-modal-overlay" id="resourceDetailModal" role="dialog" aria-modal="true" aria-labelledby="modal-res-title">
+    <div class="rd-modal-card">
+      <button class="rd-modal-close" id="modal-close-btn" aria-label="關閉資源介紹">✕</button>
+      <div class="rd-modal-hero">
+        <img id="modal-res-image" src="" alt="資源封面">
+        <span class="rd-modal-category" id="modal-res-category"></span>
       </div>
-      <div class="rd-body">
-        <div class="rd-platform">
-          <span class="rd-platform-logo" id="rd-platform-logo"></span>
-          <span id="rd-platform"></span>
+      <div class="rd-modal-body">
+        <div class="rd-modal-platform">
+          <span class="rd-modal-platform-logo" id="modal-res-logo"></span>
+          <span id="modal-res-platform"></span>
         </div>
-        <h3 class="rd-title" id="rd-title"></h3>
-        <div class="rd-tags" id="rd-tags"></div>
-        <div class="rd-divider" aria-hidden="true"></div>
-        <p class="rd-desc" id="rd-desc"></p>
+        <h3 class="rd-modal-title" id="modal-res-title"></h3>
+        <div class="rd-modal-tags" id="modal-res-tags"></div>
+        <div class="rd-modal-divider"></div>
+        <div class="rd-modal-editorial">
+          <div class="rd-editorial-section">
+            <h4 class="rd-editorial-subtitle">
+              <span class="rd-icon">💎</span> 為什麼推薦這個？
+            </h4>
+            <p class="rd-editorial-text" id="modal-res-why"></p>
+          </div>
+          <div class="rd-editorial-section">
+            <h4 class="rd-editorial-subtitle">
+              <span class="rd-icon">🎯</span> 適合誰學？
+            </h4>
+            <p class="rd-editorial-text" id="modal-res-who"></p>
+          </div>
+          <div class="rd-editorial-section">
+            <h4 class="rd-editorial-subtitle">
+              <span class="rd-icon">⏳</span> 預估學習時間
+            </h4>
+            <p class="rd-editorial-text highlight-time" id="modal-res-time"></p>
+          </div>
+        </div>
       </div>
-      <div class="rd-cta-wrap">
-        <a class="rd-cta" id="rd-cta" href="" target="_blank" rel="noopener noreferrer">
-          <span class="rd-cta-logo" id="rd-cta-logo"></span>
+      <div class="rd-modal-footer">
+        <a class="rd-modal-cta" id="modal-res-cta" href="" target="_blank" rel="noopener noreferrer">
+          <span class="rd-modal-cta-logo" id="modal-res-cta-logo"></span>
           <span>確認前往外部學習網站 →</span>
         </a>
       </div>
@@ -1213,64 +1374,79 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   /* ══════════════════════════════════════════════
      Resource Detail Modal Controller
      ══════════════════════════════════════════════ */
+  var RESOURCE_MAP = {};
+  (function buildMap(){
+    for(var i = 0; i < RESOURCES.length; i++){
+      RESOURCE_MAP[RESOURCES[i].id] = RESOURCES[i];
+    }
+  })();
+
   function openResourceDetail(id){
     var r = RESOURCE_MAP[id];
     if(!r) return;
 
-    var overlay   = document.getElementById('rd-overlay');
-    var imgEl     = document.getElementById('rd-image');
-    var catEl     = document.getElementById('rd-category');
-    var logoEl    = document.getElementById('rd-platform-logo');
-    var platEl    = document.getElementById('rd-platform');
-    var titleEl   = document.getElementById('rd-title');
-    var tagsEl    = document.getElementById('rd-tags');
-    var descEl    = document.getElementById('rd-desc');
-    var ctaEl     = document.getElementById('rd-cta');
-    var ctaLogoEl = document.getElementById('rd-cta-logo');
+    var modal     = document.getElementById('resourceDetailModal');
+    var imgEl     = document.getElementById('modal-res-image');
+    var catEl     = document.getElementById('modal-res-category');
+    var logoEl    = document.getElementById('modal-res-logo');
+    var platEl    = document.getElementById('modal-res-platform');
+    var titleEl   = document.getElementById('modal-res-title');
+    var tagsEl    = document.getElementById('modal-res-tags');
+    var whyEl     = document.getElementById('modal-res-why');
+    var whoEl     = document.getElementById('modal-res-who');
+    var timeEl    = document.getElementById('modal-res-time');
+    var ctaEl     = document.getElementById('modal-res-cta');
+    var ctaLogoEl = document.getElementById('modal-res-cta-logo');
 
-    /* Inject data */
+    if(!modal) return;
+
     imgEl.src = r.image;
     imgEl.alt = r.title;
     catEl.textContent = r.categoryLabel;
     catEl.setAttribute('data-cat', r.category);
-    logoEl.innerHTML = getBrandLogo(r.logo);
+    
+    var brandLogoHtml = typeof getBrandLogo === 'function' ? getBrandLogo(r.logo) : '';
+    logoEl.innerHTML = brandLogoHtml;
     platEl.textContent = r.platform;
     titleEl.textContent = r.title;
-    descEl.textContent = r.extendedDesc || r.description;
-    ctaEl.href = r.url;
-    ctaLogoEl.innerHTML = getBrandLogo(r.logo);
+    
+    whyEl.textContent = r.whyRecommend || '業界公認優質平台，提供豐富的免費學術資源與引導。';
+    whoEl.textContent = r.whoIsItFor || '適合所有對此領域感興趣、想自主安排學習節奏的自學者。';
+    timeEl.textContent = r.studyTime || '自主安排 / 彈性進度';
 
-    /* Tags */
+    ctaEl.href = r.url;
+    ctaLogoEl.innerHTML = brandLogoHtml;
+
     var tagsHtml = '';
-    for(var i = 0; i < r.tags.length; i++){
-      tagsHtml += '<span class="rd-tag">' + r.tags[i] + '</span>';
+    if(r.tags && r.tags.length > 0){
+      for(var i = 0; i < r.tags.length; i++){
+        tagsHtml += '<span>' + r.tags[i] + '</span>';
+      }
     }
     tagsEl.innerHTML = tagsHtml;
 
-    /* Show */
-    overlay.classList.add('active');
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    /* Scroll body of modal to top */
-    var body = overlay.querySelector('.rd-body');
-    if(body) body.scrollTop = 0;
+    var modalBody = modal.querySelector('.rd-modal-body');
+    if(modalBody) modalBody.scrollTop = 0;
   }
 
   function closeResourceDetail(){
-    var overlay = document.getElementById('rd-overlay');
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
+    var modal = document.getElementById('resourceDetailModal');
+    if(modal){
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   }
 
   function initResourceModal(){
-    var overlay  = document.getElementById('rd-overlay');
-    var closeBtn = document.getElementById('rd-close');
+    var modal    = document.getElementById('resourceDetailModal');
+    var closeBtn = document.getElementById('modal-close-btn');
     var grid     = document.getElementById('card-grid');
-    if(!overlay || !grid) return;
+    if(!modal || !grid) return;
 
-    /* Delegate click on card grid */
     grid.addEventListener('click', function(e){
-      /* If user clicked the CTA link inside detail modal, let it pass */
       var card = e.target.closest('.resource-card');
       if(!card) return;
       e.preventDefault();
@@ -1278,22 +1454,23 @@ textarea.form-input { min-height: 100px; resize: vertical; }
       if(id) openResourceDetail(id);
     });
 
-    /* Keyboard: Enter on card */
     grid.addEventListener('keydown', function(e){
       if(e.key !== 'Enter') return;
       var card = e.target.closest('.resource-card');
       if(!card) return;
+      e.preventDefault();
       var id = card.dataset.id;
       if(id) openResourceDetail(id);
     });
 
-    /* Close */
-    closeBtn.addEventListener('click', closeResourceDetail);
-    overlay.addEventListener('click', function(e){
-      if(e.target === overlay) closeResourceDetail();
+    if(closeBtn){
+      closeBtn.addEventListener('click', closeResourceDetail);
+    }
+    modal.addEventListener('click', function(e){
+      if(e.target === modal) closeResourceDetail();
     });
     document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape' && overlay.classList.contains('active')) closeResourceDetail();
+      if(e.key === 'Escape' && modal.classList.contains('active')) closeResourceDetail();
     });
   }
 
