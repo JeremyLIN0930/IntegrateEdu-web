@@ -141,28 +141,76 @@ button { font-family: var(--font-primary); }
 /* ── Hamburger ── */
 .nav-toggle {
   display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 8px; z-index: 10;
+  background: none; border: none; cursor: pointer; padding: 8px; z-index: 10000;
 }
 .nav-toggle span {
   width: 24px; height: 2px; background: var(--dark);
-  border-radius: 2px; transition: 0.3s;
+  border-radius: 2px; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle.active span:nth-child(2) { opacity: 0; }
-.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 768px) {
-  .nav-toggle { display: flex; }
+  .nav-toggle { display: flex; z-index: 10000; }
+  
   .nav-links {
-    display: none; flex-direction: column; position: absolute;
-    top: var(--nav-height); left: 0; right: 0;
-    background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
-    padding: 16px 24px; box-shadow: var(--shadow-md);
-    border-bottom: 1px solid var(--gray-300); gap: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: -100%; /* Slide out from right side */
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 80px 40px 40px;
+    box-shadow: -10px 0 40px rgba(10, 186, 181, 0.05);
+    transition: right 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 9999;
+    gap: 32px;
   }
-  .nav-links.active { display: flex; }
-  .nav-link { padding: 12px 16px; width: 100%; }
-  .nav-links .btn { width: 100%; margin-top: 8px; }
+  
+  .nav-links.active {
+    right: 0;
+  }
+  
+  .nav-link {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--dark);
+    padding: 12px 24px;
+    width: auto;
+    text-align: center;
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--tiffany-dark);
+    background: var(--tiffany-light);
+    transform: scale(1.05);
+  }
+
+  .nav-links .btn.nav-start-btn {
+    display: none; /* Hide start button on mobile overlay */
+  }
+
+  .nav-links .a11y-toggle-btn {
+    margin-left: 0;
+    margin-top: 16px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 24px;
+    width: 200px;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(10, 186, 181, 0.1);
+  }
 }
 
 /* ══════════════════════════════════════════════
@@ -308,14 +356,113 @@ button { font-family: var(--font-primary); }
   background: var(--tiffany); color: #fff;
   border-color: var(--tiffany); box-shadow: var(--shadow-glow);
 }
-@media (max-width: 576px) {
+/* 📱 Mobile UI Premium Adjustments (Mobile UX Refinements) */
+@media (max-width: 767px) {
+  /* Horizontal Filter Bar Slider */
   .filter-bar {
-    flex-wrap: nowrap; justify-content: flex-start;
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px; gap: 6px;
-    scrollbar-width: none; -ms-overflow-style: none;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 16px 12px;
+    margin-left: -24px;
+    margin-right: -24px;
+    gap: 8px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
   }
-  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-bar::-webkit-scrollbar {
+    display: none; /* Safari & Chrome */
+  }
+  .filter-tag {
+    flex: 0 0 auto; /* Prevent stretching */
+  }
+
+  /* Card Premium Breathing Room & Soft Environmental Shadow */
+  .resource-card {
+    margin: 0 4px;
+    box-shadow: 0 10px 30px rgba(10, 186, 181, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .card-body {
+    padding: 24px 20px;
+  }
+  .card-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 0.85rem;
+    line-height: 1.7; /* Higher line-height for mobile readability */
+    margin-bottom: 20px;
+  }
+
+  /* Title spacing & touch physics */
+  .section-header h2 {
+    font-size: 1.6rem !important;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  /* Touch scrolling damping */
+  .filter-bar,
+  .rd-modal-overlay,
+  .rd-modal-body,
+  .modal-overlay {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 📖 Guide Modal Custom Styles */
+.guide-modal-card {
+  max-width: 540px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.guide-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 24px 0;
+  text-align: left;
+}
+.guide-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(10, 186, 181, 0.03);
+  border: 1px solid rgba(10, 186, 181, 0.08);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.guide-step:hover {
+  background: rgba(10, 186, 181, 0.06);
+  border-color: rgba(10, 186, 181, 0.2);
+  transform: translateY(-2px);
+}
+.step-num {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #0ABAB5, #089A96);
+  padding: 4px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.guide-step h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.guide-step p {
+  font-size: 0.85rem;
+  color: var(--gray-700);
+  line-height: 1.6;
 }
 
 /* ══════════════════════════════════════════════
@@ -1199,7 +1346,8 @@ body.a11y-mode .rd-modal-path-content {
           <a href="#hero" class="nav-link" role="menuitem">首頁</a>
           <a href="#about" class="nav-link" role="menuitem">關於我們</a>
           <a href="#resources" class="nav-link" role="menuitem">學習資源</a>
-          <a href="#resources" class="btn btn-primary btn-sm" role="menuitem">開始探索 →</a>
+          <a href="#" data-modal="guide" class="nav-link" role="menuitem">使用指南</a>
+          <a href="#resources" class="btn btn-primary btn-sm nav-start-btn" role="menuitem">開始探索 →</a>
           <button class="a11y-toggle-btn" id="a11y-toggle-btn" aria-label="切換無障礙友善模式" aria-pressed="false">
             <svg class="a11y-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="5" r="2.5" fill="currentColor"/>
@@ -1326,13 +1474,13 @@ body.a11y-mode .rd-modal-path-content {
           <h4>探索</h4>
           <a href="#resources">學習資源</a>
           <a href="#about">關於我們</a>
-          <a href="#">使用指南</a>
+          <a href="#" data-modal="guide">使用指南</a>
           <a href="#">常見問題</a>
         </div>
         <div class="footer-col">
           <h4>聯絡我們</h4>
           <a href="#" data-modal="suggest">提交資源建議</a>
-          <a href="#">合作夥伴</a>
+          
           <a href="#" data-modal="feedback">意見回饋</a>
         </div>
       </div>
@@ -1364,6 +1512,43 @@ body.a11y-mode .rd-modal-path-content {
         </div>
         <button type="submit" class="modal-submit">送出建議 →</button>
       </form>
+    </div>
+  </div>
+
+  <!-- 📖 Guide Modal -->
+  <div class="modal-overlay" id="guideModal" role="dialog" aria-modal="true" aria-labelledby="guide-title">
+    <div class="modal-card guide-modal-card">
+      <button class="modal-close" id="guide-close-btn" aria-label="關閉使用指南">✕</button>
+      <h3 class="modal-title" id="guide-title">📖 使用指南</h3>
+      <p class="modal-subtitle">跟著以下簡單三步驟，展開你的無界學習之旅！</p>
+      
+      <div class="guide-steps">
+        <div class="guide-step">
+          <div class="step-num">Step 1</div>
+          <div class="step-content">
+            <h4>選擇感興趣的分類</h4>
+            <p>在「探索學習資源」區塊，點選上方的分類標籤（如：設計、程式、語文、科學等），即可快速篩選出全球嚴選的優質免費平台卡片。</p>
+          </div>
+        </div>
+        
+        <div class="guide-step">
+          <div class="step-num">Step 2</div>
+          <div class="step-content">
+            <h4>一鍵切換 🌱初學 / 🚀進階</h4>
+            <p>點擊感興趣的資源卡片，將跳出詳細中介導讀彈窗。在最上方可以切換「初學入門」與「進階深造」分階按鈕，針對你的學習階段獲取客製化的路徑描述與學習時間建議。</p>
+          </div>
+        </div>
+        
+        <div class="guide-step">
+          <div class="step-num">Step 3</div>
+          <div class="step-content">
+            <h4>點擊按鈕，無痛銜接</h4>
+            <p>確認完導讀資訊後，點選最下方的「確認前往外部學習網站 →」行動按鈕。系統將帶領你跳轉至對應階段的真實線上學習網頁（如 Figma, Coursera, LeetCode 等），無縫對接優質開源平台！</p>
+          </div>
+        </div>
+      </div>
+      
+      <button class="modal-submit" id="guide-ok-btn">我知道了</button>
     </div>
   </div>
 
@@ -1459,7 +1644,7 @@ body.a11y-mode .rd-modal-path-content {
     var ctx = canvas.getContext('2d');
 
     var CONFIG = {
-      COUNT: 120,
+      COUNT: 100, // Reduced from 120 for mobile performance optimization
       MIN_R: 1.5,
       MAX_R: 4,
       BASE_SPEED: 0.3,
@@ -1480,6 +1665,11 @@ body.a11y-mode .rd-modal-path-content {
     var scrollDelta = 0;
     var lastScrollY = 0;
 
+    // Mouse & touch interaction tracking
+    var interX = null;
+    var interY = null;
+    var activeInter = false;
+
     function resize(){
       W = canvas.width = window.innerWidth;
       H = canvas.height = window.innerHeight;
@@ -1488,12 +1678,18 @@ body.a11y-mode .rd-modal-path-content {
     function create(){
       particles = [];
       for(var i = 0; i < CONFIG.COUNT; i++){
+        var px = Math.random() * W;
+        var py = Math.random() * H;
         particles.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
+          x: px,
+          y: py,
+          targetX: px,
+          targetY: py,
+          dispX: 0,
+          dispY: 0,
           r: CONFIG.MIN_R + Math.random() * (CONFIG.MAX_R - CONFIG.MIN_R),
-          vx: (Math.random() - 0.5) * CONFIG.BASE_SPEED,
-          vy: (Math.random() - 0.5) * CONFIG.BASE_SPEED,
+          vx: (Math.random() - 0.5) * 0.1, // Small horizontal sway velocity
+          vy: -0.15 - Math.random() * 0.2,  // Constantly drift upwards
           color: CONFIG.COLORS[Math.floor(Math.random() * CONFIG.COLORS.length)],
           baseAlpha: 0.3 + Math.random() * 0.5,
           phase: Math.random() * Math.PI * 2
@@ -1502,6 +1698,13 @@ body.a11y-mode .rd-modal-path-content {
     }
 
     function animate(){
+      // Accessibility mode: Completely skip rendering and clear to save CPU/GPU cycles
+      if (document.body.classList.contains('a11y-mode')) {
+        ctx.clearRect(0, 0, W, H);
+        requestAnimationFrame(animate);
+        return;
+      }
+
       ctx.clearRect(0, 0, W, H);
       var cs = window.scrollY;
       scrollDelta += (cs - lastScrollY) * CONFIG.SCROLL_MULT;
@@ -1511,13 +1714,43 @@ body.a11y-mode .rd-modal-path-content {
 
       for(var i = 0; i < particles.length; i++){
         var p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy - scrollDelta * 0.5;
+        
+        // Upward drift and sine-wave horizontal sway
+        p.targetX += p.vx + Math.sin(t + p.phase) * 0.15;
+        p.targetY += p.vy - scrollDelta * 0.5;
+
+        // Wrap around
+        if(p.targetX < -10) p.targetX = W + 10;
+        if(p.targetX > W + 10) p.targetX = -10;
+        if(p.targetY < -10) p.targetY = H + 10;
+        if(p.targetY > H + 10) p.targetY = -10;
+
+        // Fluid repulsion interaction
+        if(activeInter && interX !== null && interY !== null){
+          var dx = p.targetX - interX;
+          var dy = p.targetY - interY;
+          var dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 100){
+            var force = (100 - dist) / 100; // Stronger at center (0 to 1)
+            var angle = Math.atan2(dy, dx);
+            var targetDispX = Math.cos(angle) * force * 28;
+            var targetDispY = Math.sin(angle) * force * 28;
+            p.dispX += (targetDispX - p.dispX) * 0.15;
+            p.dispY += (targetDispY - p.dispY) * 0.15;
+          } else {
+            p.dispX *= 0.92;
+            p.dispY *= 0.92;
+          }
+        } else {
+          p.dispX *= 0.92;
+          p.dispY *= 0.92;
+        }
+
+        // Final coordinate calculation
+        p.x = p.targetX + p.dispX;
+        p.y = p.targetY + p.dispY;
+
         var alpha = p.baseAlpha * (0.6 + 0.4 * Math.sin(t + p.phase));
-        if(p.x < -10) p.x = W + 10;
-        if(p.x > W + 10) p.x = -10;
-        if(p.y < -10) p.y = H + 10;
-        if(p.y > H + 10) p.y = -10;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -1527,13 +1760,13 @@ body.a11y-mode .rd-modal-path-content {
 
         for(var j = i + 1; j < particles.length; j++){
           var p2 = particles[j];
-          var dx = p.x - p2.x, dy = p.y - p2.y;
-          var dist = Math.sqrt(dx*dx + dy*dy);
-          if(dist < CONFIG.CONN_DIST){
+          var pdx = p.x - p2.x, pdy = p.y - p2.y;
+          var pdist = Math.sqrt(pdx*pdx + pdy*pdy);
+          if(pdist < CONFIG.CONN_DIST){
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = 'rgba(10,186,181,' + (CONFIG.CONN_ALPHA * (1 - dist / CONFIG.CONN_DIST)) + ')';
+            ctx.strokeStyle = 'rgba(10,186,181,' + (CONFIG.CONN_ALPHA * (1 - pdist / CONFIG.CONN_DIST)) + ')';
             ctx.globalAlpha = 1;
             ctx.lineWidth = 0.5;
             ctx.stroke();
@@ -1543,6 +1776,26 @@ body.a11y-mode .rd-modal-path-content {
       ctx.globalAlpha = 1;
       requestAnimationFrame(animate);
     }
+
+    // Attach mouse & touch tracking
+    window.addEventListener('mousemove', function(e){
+      interX = e.clientX;
+      interY = e.clientY;
+      activeInter = true;
+    });
+    window.addEventListener('mouseleave', function(){
+      activeInter = false;
+    });
+    window.addEventListener('touchmove', function(e){
+      if(e.touches.length > 0){
+        interX = e.touches[0].clientX;
+        interY = e.touches[0].clientY;
+        activeInter = true;
+      }
+    }, {passive: true});
+    window.addEventListener('touchend', function(){
+      activeInter = false;
+    });
 
     var resizeTimer;
     window.addEventListener('resize', function(){
@@ -2972,14 +3225,29 @@ body.a11y-mode .rd-modal-path-content {
       navLinks.classList.toggle('active');
       var isOpen = navLinks.classList.contains('active');
       toggle.setAttribute('aria-expanded', isOpen.toString());
+      if(isOpen) {
+        document.body.style.overflow = 'hidden'; // Lock background scrolling
+      } else {
+        document.body.style.overflow = '';
+      }
     });
 
-    navLinks.querySelectorAll('.nav-link').forEach(function(link){
-      link.addEventListener('click', function(){
+    // Close mobile side drawer when clicking any links/buttons inside it
+    navLinks.addEventListener('click', function(e){
+      if (e.target.closest('a') || e.target.closest('button')) {
         toggle.classList.remove('active');
         navLinks.classList.remove('active');
         toggle.setAttribute('aria-expanded', 'false');
-      });
+        
+        var guideModal = document.getElementById('guideModal');
+        var detailModal = document.getElementById('resourceDetailModal');
+        var suggestModal = document.getElementById('modal-overlay');
+        if ((!guideModal || !guideModal.classList.contains('active')) &&
+            (!detailModal || !detailModal.classList.contains('active')) &&
+            (!suggestModal || !suggestModal.classList.contains('active'))) {
+          document.body.style.overflow = '';
+        }
+      }
     });
 
     document.addEventListener('click', function(e){
@@ -2987,7 +3255,62 @@ body.a11y-mode .rd-modal-path-content {
         toggle.classList.remove('active');
         navLinks.classList.remove('active');
         toggle.setAttribute('aria-expanded', 'false');
+        
+        var guideModal = document.getElementById('guideModal');
+        var detailModal = document.getElementById('resourceDetailModal');
+        var suggestModal = document.getElementById('modal-overlay');
+        if ((!guideModal || !guideModal.classList.contains('active')) &&
+            (!detailModal || !detailModal.classList.contains('active')) &&
+            (!suggestModal || !suggestModal.classList.contains('active'))) {
+          document.body.style.overflow = '';
+        }
       }
+    });
+  }
+
+  function initGuideModal(){
+    var guideModal = document.getElementById('guideModal');
+    var closeBtn = document.getElementById('guide-close-btn');
+    var okBtn = document.getElementById('guide-ok-btn');
+    if(!guideModal) return;
+
+    function openGuide(e){
+      if(e) e.preventDefault();
+      
+      // Close hamburger menu if open
+      var toggle = document.querySelector('.nav-toggle');
+      var navLinks = document.querySelector('.nav-links');
+      if (toggle && navLinks && toggle.classList.contains('active')) {
+        toggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+
+      guideModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGuide(){
+      guideModal.classList.remove('active');
+      var detailModal = document.getElementById('resourceDetailModal');
+      var suggestModal = document.getElementById('modal-overlay');
+      if((!detailModal || !detailModal.classList.contains('active')) && 
+         (!suggestModal || !suggestModal.classList.contains('active'))){
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.querySelectorAll('[data-modal="guide"]').forEach(function(link){
+      link.addEventListener('click', openGuide);
+    });
+
+    if(closeBtn) closeBtn.addEventListener('click', closeGuide);
+    if(okBtn) okBtn.addEventListener('click', closeGuide);
+    guideModal.addEventListener('click', function(e){
+      if(e.target === guideModal) closeGuide();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && guideModal.classList.contains('active')) closeGuide();
     });
   }
 
@@ -3112,6 +3435,7 @@ body.a11y-mode .rd-modal-path-content {
     initSmoothScroll();    // 6. Anchor smooth scroll
     updateCopyrightYear(); // 7. Footer year
     initModal();           // 8. Modal system (feedback/suggest)
+    initGuideModal();      // 8.5 Guide Modal system
     initResourceModal();   // 9. Resource detail modal
     initScrollReveal();    // 10. Scroll animations
     initA11yMode();        // 11. Accessibility mode toggle
