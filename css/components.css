@@ -896,38 +896,39 @@
   background: linear-gradient(180deg, transparent 58%, rgba(255, 111, 97, 0.22) 58%);
 }
 
-/* ♿ 無障礙友善切換按鈕 */
+/* ♿ 無障礙友善切換按鈕 (Header 內置膠囊型 Ghost Button) */
 .a11y-toggle-btn {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  z-index: 990;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  background: var(--color-surface, #FFFFFF);
+  gap: 6px;
+  padding: 6px 14px;
+  background: transparent;
   color: var(--color-primary-dark, #089E9A);
-  border: 2px solid rgba(10, 186, 181, 0.3);
-  border-radius: 30px;
+  border: 1px solid rgba(10, 186, 181, 0.4);
+  border-radius: 20px;
   font-family: var(--font-family-primary);
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(10, 186, 181, 0.15);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  margin-left: 8px;
 }
-
 .a11y-toggle-btn:hover {
-  transform: translateY(-3px);
   background: var(--color-primary-bg, #E8F8F5);
-  color: var(--color-primary-dark, #089E9A);
   border-color: var(--color-primary, #0ABAB5);
-  box-shadow: 0 10px 30px rgba(10, 186, 181, 0.3);
+  color: var(--color-primary-dark, #089E9A);
 }
-
 .a11y-icon {
   flex-shrink: 0;
+}
+@media (max-width: 767px) {
+  .a11y-toggle-btn {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+  }
 }
 
 /* ♿ 無障礙高對比與放大模式 (.a11y-mode) */
