@@ -534,7 +534,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 }
 
 /* ══════════════════════════════════════════════
-   📖 嚴選學習資源詳細導讀彈窗 (Glassmorphism & Editorial UI - 黃金雙欄重構)
+   📖 嚴選學習資源詳細導讀彈窗 (Glassmorphism & Editorial UI - Consolidated & Fixed Layout)
    ══════════════════════════════════════════════ */
 .rd-modal-overlay {
   position: fixed;
@@ -544,10 +544,10 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   -webkit-backdrop-filter: blur(16px);
   z-index: 9999;
   display: flex;
-  align-items: flex-start; /* 改為 flex-start 讓頂部有空間 */
+  align-items: flex-start; /* Correct alignment for scrolling */
   justify-content: center;
-  padding: 40px 20px;       /* 增加優雅留白 */
-  overflow-y: auto;        /* 啟用遮罩層垂直滾動 */
+  padding: 40px 20px;
+  overflow-y: auto;        /* Enable scroll on overlay container */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
@@ -566,25 +566,20 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   border: 1px solid rgba(10, 186, 181, 0.2);
   border-radius: 24px;
   overflow: hidden;
-  max-width: 820px; /* 放寬最大寬度，因應橫向雙欄佈局 */
+  max-width: 820px;
   width: 90%;
-  height: auto;      /* 高度自適應，隨遮罩滾動，防鎖死 */
   box-shadow: 0 30px 70px rgba(10, 186, 181, 0.12), 
               0 10px 30px rgba(0, 0, 0, 0.04);
   transform: scale(0.95) translateY(30px);
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.2, 1.1);
   position: relative;
-  
-  /* 桌機版雙欄 Grid 排版 */
-  display: grid;
-  grid-template-columns: 42% 58%;
 }
 
 .rd-modal-overlay.active .rd-modal-card {
   transform: scale(1) translateY(0);
 }
 
-/* 關閉按鈕 */
+/* Close Button */
 .rd-modal-close {
   position: absolute;
   top: 16px;
@@ -598,84 +593,77 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: #495057;
+  color: var(--gray-700);
   cursor: pointer;
   z-index: 10;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-fast);
 }
 
 .rd-modal-close:hover {
-  background: #E0F7F6;
-  color: #089A96;
-  border-color: rgba(10, 186, 181, 0.3);
-  transform: rotate(90deg) scale(1.05);
+  background: var(--tiffany);
+  color: #fff;
+  border-color: var(--tiffany);
+  transform: rotate(90deg);
 }
 
-/* 左側欄：影像區 (桌機滿版) */
+/* Banner Hero */
 .rd-modal-hero {
-  grid-column: 1;
-  grid-row: 1 / span 2;
   position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 480px;
   overflow: hidden;
-  border-right: 1px solid rgba(10, 186, 181, 0.1);
 }
 
 .rd-modal-hero img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.05);
-  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .rd-modal-overlay.active .rd-modal-hero img {
-  transform: scale(1);
+  transform: scale(1.03);
 }
 
 .rd-modal-category {
   position: absolute;
-  bottom: 24px;
-  left: 20px;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.8rem;
+  top: 16px;
+  left: 16px;
+  padding: 5px 14px;
+  border-radius: 10px;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 0.05em;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 2;
 }
 
-.rd-modal-category[data-cat="design"]  { background: rgba(10, 186, 181, 0.85); }
-.rd-modal-category[data-cat="code"]    { background: rgba(99, 102, 241, 0.85); }
-.rd-modal-category[data-cat="language"]{ background: rgba(245, 158, 11, 0.85); }
-.rd-modal-category[data-cat="art"]     { background: rgba(236, 72, 153, 0.85); }
-.rd-modal-category[data-cat="exam"]    { background: rgba(16, 185, 129, 0.85); }
-.rd-modal-category[data-cat="science"] { background: rgba(59, 130, 246, 0.85); }
+.rd-modal-category[data-cat="design"]      { background: rgba(10, 186, 181, 0.85); }
+.rd-modal-category[data-cat="code"]        { background: rgba(99, 102, 241, 0.85); }
+.rd-modal-category[data-cat="language"]    { background: rgba(245, 158, 11, 0.85); }
+.rd-modal-category[data-cat="art"]         { background: rgba(236, 72, 153, 0.85); }
+.rd-modal-category[data-cat="exam"]        { background: rgba(16, 185, 129, 0.85); }
+.rd-modal-category[data-cat="science"]     { background: rgba(59, 130, 246, 0.85); }
+.rd-modal-category[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
+.rd-modal-category[data-cat="music"]       { background: rgba(142, 36, 170, 0.85); }
 
-/* 右側欄：主內容區 */
+/* Modal Body */
 .rd-modal-body {
-  grid-column: 2;
-  grid-row: 1;
-  padding: 40px 40px 12px;
-  overflow: visible;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .rd-modal-platform {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #089A96;
   margin-bottom: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--tiffany-dark);
+  text-transform: uppercase;
 }
 
 .rd-modal-platform-logo {
@@ -684,6 +672,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .rd-modal-platform-logo svg {
@@ -692,10 +681,10 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 }
 
 .rd-modal-title {
-  font-size: 1.45rem;
+  font-size: 1.4rem;
   font-weight: 900;
-  color: #1A1A2E;
-  line-height: 1.3;
+  color: var(--dark);
+  line-height: 1.35;
   margin-bottom: 12px;
   letter-spacing: -0.01em;
 }
@@ -723,7 +712,74 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   margin-bottom: 20px;
 }
 
-/* 嚴選導讀板塊 - 桌機雙欄美感雜誌排版 */
+/* Path Selector (Tabs) */
+.rd-modal-path-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.path-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--pure-white);
+  border: 1.5px solid var(--gray-300);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.path-tab-btn .tab-icon {
+  font-size: 1.4rem;
+}
+
+.path-tab-btn .tab-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.path-tab-btn .tab-label {
+  font-size: 0.65rem;
+  color: var(--gray-500);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.path-tab-btn .tab-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.path-tab-btn.active {
+  border-color: var(--tiffany);
+  box-shadow: 0 4px 15px var(--tiffany-glow);
+  background: var(--tiffany-light);
+}
+
+.path-tab-btn.active .tab-title {
+  color: var(--tiffany-dark);
+}
+
+.rd-modal-path-content {
+  background: rgba(10, 186, 181, 0.04);
+  border: 1px dashed rgba(10, 186, 181, 0.3);
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.rd-path-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--gray-700);
+}
+
+/* Editorial Sections */
 .rd-modal-editorial {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -733,7 +789,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 .rd-editorial-section {
   background: rgba(248, 249, 250, 0.6);
   border-left: 3px solid #0ABAB5;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 0 12px 12px 0;
 }
 
@@ -742,7 +798,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 10px 18px;
   border-radius: 8px;
 }
 
@@ -776,12 +832,13 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   margin-top: 0;
 }
 
-/* 右側欄：底部按鈕區 */
+/* Sticky Modal Footer */
 .rd-modal-footer {
-  grid-column: 2;
-  grid-row: 2;
-  padding: 12px 40px 40px;
-  flex-shrink: 0;
+  padding: 16px 40px 32px;
+  border-top: 1px solid rgba(10, 186, 181, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
 }
 
 .rd-modal-cta {
@@ -828,91 +885,6 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   height: 100%;
 }
 
-/* 📱 RWD 與防跑版優化 */
-@media (max-width: 767px) {
-  .rd-modal-overlay {
-    padding: 20px 10px;      /* 行動端留白優化 */
-    align-items: flex-start; /* 改為頂部對齊以利滑動 */
-  }
-
-  .rd-modal-card {
-    max-width: 92%;
-    width: 92%;
-    margin: 0 auto;
-    height: auto;            /* 手機版改自適應，隨遮罩滾動，不設限 */
-    max-height: none;        /* 移除手機版最大高度限制，防止鎖死內容 */
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .rd-modal-hero {
-    width: 100%;
-    height: 150px;
-    min-height: 150px;
-    aspect-ratio: auto;
-    border-right: none;
-    border-bottom: 1px solid rgba(10, 186, 181, 0.1);
-  }
-
-  .rd-modal-category {
-    bottom: 12px;
-    left: 16px;
-    padding: 4px 12px;
-    font-size: 0.75rem;
-  }
-
-  .rd-modal-body {
-    padding: 24px 20px 12px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .rd-modal-title {
-    font-size: 1.2rem;
-  }
-
-  .rd-modal-tags {
-    margin-bottom: 12px;
-  }
-
-  .rd-modal-divider {
-    margin-bottom: 16px;
-  }
-
-  .rd-modal-editorial {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .rd-editorial-section {
-    padding: 10px 14px;
-  }
-
-  .rd-modal-editorial .rd-editorial-section:last-child {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-  }
-
-  .rd-modal-footer {
-    padding: 12px 20px 20px;
-  }
-
-  .rd-modal-cta {
-    padding: 12px 20px;
-    font-size: 0.9rem;
-    border-radius: 12px;
-  }
-}
-
-@media (max-width: 768px) and (min-width: 577px) {
-  .rd-modal-card { max-width: 480px; }
-}
-
 /* ══════════════════════════════════════════════
    Animations & Scroll Reveal
    ══════════════════════════════════════════════ */
@@ -940,7 +912,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   .reveal { opacity: 1; transform: none; }
 }
   
-/* 🎨 宗旨文案強調螢光筆劃效果 */
+/* Highlight utility */
 .text-highlight {
   background: linear-gradient(180deg, transparent 58%, rgba(10, 186, 181, 0.22) 58%);
   display: inline;
@@ -952,7 +924,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   background: linear-gradient(180deg, transparent 58%, rgba(255, 111, 97, 0.22) 58%);
 }
 
-/* ♿ 無障礙友善切換按鈕 (Header 內置膠囊型 Ghost Button) */
+/* ♿ Accessibility toggle button (Header capsule styling) */
 .a11y-toggle-btn {
   display: inline-flex;
   align-items: center;
@@ -987,12 +959,11 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   }
 }
 
-/* ♿ 無障礙高對比與放大模式 (.a11y-mode) */
+/* ♿ A11y Mode Overrides */
 body.a11y-mode {
-  font-size: 1.2rem !important; /* 全站字體放大 1.2 倍 */
+  font-size: 1.2rem !important;
   background-color: #ffffff !important;
   color: #000000 !important;
-  /* 高對比色彩覆蓋 */
   --white: #ffffff;
   --pure-white: #ffffff;
   --gray-900: #000000;
@@ -1002,13 +973,12 @@ body.a11y-mode {
   --gray-100: #f1f3f5;
   --dark: #000000;
   --dark-soft: #000000;
-  --tiffany: #005a52; /* 高對比深藍綠色 */
+  --tiffany: #005a52;
   --tiffany-dark: #003d37;
   --tiffany-light: #e6f7f5;
   --tiffany-glow: rgba(0, 90, 82, 0.35);
 }
 
-/* 連結與按鈕更顯眼的底線或邊框 */
 body.a11y-mode a {
   text-decoration: underline !important;
   text-underline-offset: 4px;
@@ -1062,87 +1032,11 @@ body.a11y-mode .a11y-toggle-btn {
   }
 }
 
-/* 📸 攝影 and 🎵 音樂 分類標籤樣式 */
-.card-category-tag[data-cat="photography"],
-.rd-modal-category[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
-.card-category-tag[data-cat="music"],
-.rd-modal-category[data-cat="music"] { background: rgba(142, 36, 170, 0.85); }
-
-/* 💡 初學/進階導航區選取器樣式 */
-.rd-modal-path-selector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-  role: tablist;
-}
-
-.path-tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: var(--pure-white);
-  border: 1.5px solid var(--gray-300);
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.path-tab-btn .tab-icon {
-  font-size: 1.4rem;
-}
-
-.path-tab-btn .tab-meta {
-  display: flex;
-  flex-direction: column;
-}
-
-.path-tab-btn .tab-label {
-  font-size: 0.65rem;
-  color: var(--gray-500);
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.path-tab-btn .tab-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--dark);
-}
-
-.path-tab-btn.active {
-  border-color: var(--tiffany);
-  box-shadow: 0 4px 15px var(--tiffany-glow);
-  background: var(--tiffany-light);
-}
-
-.path-tab-btn.active .tab-title {
-  color: var(--tiffany-dark);
-}
-
-.rd-modal-path-content {
-  background: rgba(10, 186, 181, 0.04);
-  border: 1px dashed rgba(10, 186, 181, 0.3);
-  padding: 14px 18px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-.rd-path-desc {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: var(--gray-700);
-}
-
-/* ♿ 無障礙模式極致強化 (色盲、全盲、降噪) */
 body.a11y-mode .card-category-tag::before,
 body.a11y-mode .rd-modal-category::before {
   content: "[類別: ] ";
 }
 
-/* 關閉 Canvas 粒子以進行降噪 */
 body.a11y-mode #particle-canvas {
   opacity: 0 !important;
   pointer-events: none;
@@ -1163,328 +1057,23 @@ body.a11y-mode .rd-modal-path-content {
   background: #ffffff !important;
 }
 
-/* 📖 Resource Detail Modal 最終優化與滾動防鎖死樣式 */
-.rd-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(26, 26, 46, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 9999;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px 20px;
-  overflow-y: auto;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
-              visibility 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.rd-modal-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-.rd-modal-card {
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(10, 186, 181, 0.2);
-  border-radius: 24px;
-  overflow: hidden;
-  max-width: 820px;
-  width: 90%;
-  box-shadow: 0 30px 70px rgba(10, 186, 181, 0.12), 
-              0 10px 30px rgba(0, 0, 0, 0.04);
-  transform: scale(0.95) translateY(30px);
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.2, 1.1);
-  position: relative;
-}
-.rd-modal-overlay.active .rd-modal-card {
-  transform: scale(1) translateY(0);
-}
-.rd-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(10, 186, 181, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  color: #495057;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-.rd-modal-close:hover {
-  background: #E0F7F6;
-  color: #089A96;
-  border-color: rgba(10, 186, 181, 0.3);
-  transform: rotate(90deg) scale(1.05);
-}
-.rd-modal-hero {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-.rd-modal-hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.05);
-  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.rd-modal-overlay.active .rd-modal-hero img {
-  transform: scale(1);
-}
-.rd-modal-category {
-  position: absolute;
-  bottom: 24px;
-  left: 20px;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 0.05em;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  z-index: 2;
-}
-.rd-modal-category[data-cat="design"]  { background: rgba(10, 186, 181, 0.85); }
-.rd-modal-category[data-cat="code"]    { background: rgba(99, 102, 241, 0.85); }
-.rd-modal-category[data-cat="language"]{ background: rgba(245, 158, 11, 0.85); }
-.rd-modal-category[data-cat="art"]     { background: rgba(236, 72, 153, 0.85); }
-.rd-modal-category[data-cat="exam"]    { background: rgba(16, 185, 129, 0.85); }
-.rd-modal-category[data-cat="science"] { background: rgba(59, 130, 246, 0.85); }
+/* 📸 攝影 and 🎵 音樂 分類標籤樣式 */
+.card-category-tag[data-cat="photography"],
 .rd-modal-category[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
+.card-category-tag[data-cat="music"],
 .rd-modal-category[data-cat="music"] { background: rgba(142, 36, 170, 0.85); }
 
-.card-category-tag[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
-.card-category-tag[data-cat="music"] { background: rgba(142, 36, 170, 0.85); }
-
-.rd-modal-body {
-  padding: 40px 40px 12px;
-}
-.rd-modal-platform {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #089A96;
-  margin-bottom: 8px;
-}
-.rd-modal-platform-logo {
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.rd-modal-platform-logo svg {
-  width: 100%;
-  height: 100%;
-}
-.rd-modal-title {
-  font-size: 1.45rem;
-  font-weight: 900;
-  color: #1A1A2E;
-  line-height: 1.3;
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
-}
-.rd-modal-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-.rd-modal-tags span {
-  font-size: 0.72rem;
-  padding: 4px 12px;
-  border-radius: 12px;
-  background: #E0F7F6;
-  color: #089A96;
-  font-weight: 600;
-}
-.rd-modal-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(10, 186, 181, 0.25), rgba(10, 186, 181, 0.05));
-  margin: 20px 0;
-}
-.rd-modal-path-selector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-.path-tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 16px;
-  background: #F1F3F5; /* 未選中時為淺灰色 */
-  border: 1.5px solid #E9ECEF;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow: none;
-}
-.path-tab-btn:hover {
-  background: #E9ECEF;
-}
-.path-tab-btn .tab-icon {
-  font-size: 1.6rem;
-}
-.path-tab-btn .tab-meta {
-  display: flex;
-  flex-direction: column;
-}
-.path-tab-btn .tab-label {
-  font-size: 0.65rem;
-  color: #6c757d;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-bottom: 2px;
-}
-.path-tab-btn .tab-title {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #212529;
-}
-.path-tab-btn.active {
-  border-color: #0ABAB5; /* 選中時 Tiffany 綠邊框 */
-  background: #E0F7F6; /* Tiffany 綠極淺背景 */
-  box-shadow: 0 8px 24px rgba(10, 186, 181, 0.15); /* 輕微陰影 */
-}
-.path-tab-btn.active .tab-title {
-  color: #089A96;
-}
-.path-tab-btn.active .tab-label {
-  color: #0a8f8b;
-}
-
-.rd-modal-path-content {
-  background: rgba(10, 186, 181, 0.04);
-  border: 1px dashed rgba(10, 186, 181, 0.3);
-  padding: 16px 20px;
-  border-radius: 16px;
-  margin-bottom: 24px;
-}
-.rd-path-desc {
-  font-size: 0.9rem;
-  line-height: 1.75;
-  color: #495057;
-}
-
-.rd-modal-editorial {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.rd-editorial-section {
-  background: rgba(248, 249, 250, 0.6);
-  border-left: 3px solid #0ABAB5;
-  padding: 12px 16px;
-  border-radius: 0 12px 12px 0;
-}
-.rd-modal-editorial .rd-editorial-section:last-child {
-  grid-column: 1 / span 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 18px;
-  border-radius: 8px;
-}
-.rd-editorial-subtitle {
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: #1A1A2E;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.rd-modal-editorial .rd-editorial-section:last-child .rd-editorial-subtitle {
-  margin-bottom: 0;
-}
-.rd-editorial-text {
-  font-size: 0.85rem;
-  line-height: 1.65;
-  color: #495057;
-}
-.highlight-time {
-  font-weight: 700;
-  color: #089A96;
-  background: rgba(10, 186, 181, 0.08);
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 6px;
-  margin-top: 0;
-}
-.rd-modal-footer {
-  padding: 12px 40px 40px;
-}
-.rd-modal-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #0ABAB5, #089A96);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 8px 24px rgba(10, 186, 181, 0.25);
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-}
-.rd-modal-cta:hover {
-  transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 16px 36px rgba(10, 186, 181, 0.35);
-  filter: brightness(1.05);
-}
-.rd-modal-cta:active {
-  transform: translateY(-1px) scale(0.99);
-  box-shadow: 0 6px 16px rgba(10, 186, 181, 0.2);
-}
-.rd-modal-cta-logo {
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.rd-modal-cta-logo svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* 桌機版 2-Column 黃金比例與內部獨立滾動優化 */
+/* ══════════════════════════════════════════════
+   📱 RWD Media Queries for Resource Detail Modal
+   ══════════════════════════════════════════════ */
 @media (min-width: 768px) {
   .rd-modal-card {
     display: grid;
-    grid-template-columns: 40% 60%; /* 左圖右文 4:6 優雅比例 */
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 1fr auto;
     height: 640px;
     max-height: 85vh;
-    overflow: hidden; /* 卡片本身不允許溢出 */
+    overflow: hidden;
   }
   .rd-modal-hero {
     grid-column: 1;
@@ -1496,14 +1085,13 @@ body.a11y-mode .rd-modal-path-content {
   .rd-modal-body {
     grid-column: 2;
     grid-row: 1;
-    height: 480px; /* 固定高度，讓內部文字滾動 */
+    height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 40px 40px 10px;
     scrollbar-width: thin;
     scrollbar-color: rgba(10, 186, 181, 0.45) rgba(10, 186, 181, 0.03);
   }
-  /* 美化 Chrome/Safari 滾動條樣式，呈現 Tiffany 綠色調 */
   .rd-modal-body::-webkit-scrollbar {
     width: 6px;
   }
@@ -1531,7 +1119,6 @@ body.a11y-mode .rd-modal-path-content {
   }
 }
 
-/* 行動端與平板版適應 */
 @media (max-width: 767px) {
   .rd-modal-overlay {
     padding: 20px 10px;
@@ -1584,23 +1171,13 @@ body.a11y-mode .rd-modal-path-content {
     gap: 12px;
   }
   .rd-modal-footer {
-    padding: 12px 20px 20px;
+    padding: 12px 20px 24px;
   }
 }
+@media (max-width: 768px) and (min-width: 577px) {
+  .rd-modal-card { max-width: 480px; }
+}
 
-/* ♿ 無障礙模式適應 */
-body.a11y-mode .path-tab-btn.active {
-  border: 3px solid #000000 !important;
-  background: #ffffff !important;
-}
-body.a11y-mode .path-tab-btn.active .tab-title {
-  color: #000000 !important;
-  text-decoration: underline !important;
-}
-body.a11y-mode .rd-modal-path-content {
-  border: 2px solid #000000 !important;
-  background: #ffffff !important;
-}
 </style>
 </head>
 <body>
@@ -3030,11 +2607,14 @@ body.a11y-mode .rd-modal-path-content {
     var begBtn = document.getElementById('path-beginner-btn');
     var advBtn = document.getElementById('path-advanced-btn');
     var pathDescEl = document.getElementById('modal-res-path-desc');
-    var ctaEl = document.getElementById('modal-res-cta');
+    var finalBtn = document.getElementById('modal-res-cta');
     
     var whyEl = document.getElementById('modal-res-why');
     var whoEl = document.getElementById('modal-res-who');
     var timeEl = document.getElementById('modal-res-time');
+    
+    var targetLink = '';
+    var labelLevel = '';
     
     if(currentLevel === 'beginner') {
       begBtn.classList.add('active');
@@ -3043,8 +2623,9 @@ body.a11y-mode .rd-modal-path-content {
       advBtn.setAttribute('aria-selected', 'false');
       
       pathDescEl.textContent = r.beginnerPath ? r.beginnerPath.desc : (r.extendedDesc || r.description);
-      ctaEl.href = r.beginnerPath ? r.beginnerPath.link : r.url;
+      targetLink = r.beginnerPath ? r.beginnerPath.link : r.url;
       timeEl.textContent = (r.beginnerPath && r.beginnerPath.studyTime) || r.studyTime || '自主安排';
+      labelLevel = '初學入門';
     } else {
       advBtn.classList.add('active');
       advBtn.setAttribute('aria-selected', 'true');
@@ -3052,10 +2633,23 @@ body.a11y-mode .rd-modal-path-content {
       begBtn.setAttribute('aria-selected', 'false');
       
       pathDescEl.textContent = r.advancedPath ? r.advancedPath.desc : (r.extendedDesc || r.description);
-      ctaEl.href = r.advancedPath ? r.advancedPath.link : r.url;
+      targetLink = r.advancedPath ? r.advancedPath.link : r.url;
       timeEl.textContent = (r.advancedPath && r.advancedPath.studyTime) || r.studyTime || '自主安排';
+      labelLevel = '進階深造';
     }
+    
+    // Binding the click event dynamically (Fix Hyperlink Binding)
+    finalBtn.href = targetLink;
+    finalBtn.onclick = function(e) {
+      e.preventDefault();
+      window.open(targetLink, '_blank', 'noopener,noreferrer');
+    };
+    
+    // Update aria-label (Ensure A11y)
+    var ariaLabelText = '確認前往外部學習網站，開啟' + labelLevel + '課程：' + r.title + ' (' + r.platform + ')';
+    finalBtn.setAttribute('aria-label', ariaLabelText);
   }
+
 
   function openResourceDetail(id){
     var r = RESOURCE_MAP[id];
