@@ -1362,3 +1362,105 @@ body.a11y-mode .a11y-toggle-btn {
   .rd-modal-card { max-width: 480px; }
 }
 
+
+
+/* 📸 攝影 and 🎵 音樂 分類標籤樣式 */
+.card-category-tag[data-cat="photography"],
+.rd-modal-category[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
+.card-category-tag[data-cat="music"],
+.rd-modal-category[data-cat="music"] { background: rgba(142, 36, 170, 0.85); }
+
+/* 💡 初學/進階導航區選取器樣式 */
+.rd-modal-path-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+  role: tablist;
+}
+
+.path-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--color-surface, #FFFFFF);
+  border: 1.5px solid var(--color-border, #E0E6E9);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.path-tab-btn .tab-icon {
+  font-size: 1.4rem;
+}
+
+.path-tab-btn .tab-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.path-tab-btn .tab-label {
+  font-size: 0.65rem;
+  color: var(--color-text-secondary, #636E72);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.path-tab-btn .tab-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text, #2D3436);
+}
+
+.path-tab-btn.active {
+  border-color: var(--color-primary, #0ABAB5);
+  box-shadow: 0 4px 15px rgba(10, 186, 181, 0.15);
+  background: var(--color-primary-bg, #E8F8F5);
+}
+
+.path-tab-btn.active .tab-title {
+  color: var(--color-primary-dark, #089E9A);
+}
+
+.rd-modal-path-content {
+  background: rgba(10, 186, 181, 0.04);
+  border: 1px dashed rgba(10, 186, 181, 0.3);
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.rd-path-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary, #636E72);
+}
+
+/* ♿ 無障礙模式極致強化 (色盲、全盲、降噪) */
+body.a11y-mode .card-category-tag::before,
+body.a11y-mode .rd-modal-category::before {
+  content: "[類別: ] ";
+}
+
+/* 關閉 Canvas 粒子以進行降噪 */
+body.a11y-mode #particle-canvas {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+body.a11y-mode .path-tab-btn.active {
+  border: 3px solid #000000 !important;
+  background: #ffffff !important;
+}
+
+body.a11y-mode .path-tab-btn.active .tab-title {
+  color: #000000 !important;
+  text-decoration: underline !important;
+}
+
+body.a11y-mode .rd-modal-path-content {
+  border: 2px solid #000000 !important;
+  background: #ffffff !important;
+}
