@@ -39,85 +39,93 @@
   const RESOURCES = [
     {
       id:'figma', platform:'Figma',
-      title:'Figma — 免費協作 UI 設計工具',
-      description:'業界標準的介面設計工具，免費版已含強大的即時協作功能。從零開始學習 UI/UX 設計的最佳起點。',
-      extendedDesc:'Figma 是目前全球 UI/UX 設計師最仰賴的雲端協作工具，免費版即可建立無限個人專案。它最大的亮點在於「即時多人協作」——你可以和夥伴同時編輯同一份設計稿，搭配強大的元件系統（Components）與自動佈局（Auto Layout），從線框稿到高保真原型一氣成。',
-      whyRecommend:'業界公認的 UI/UX 設計黃金標準。免安裝軟體即可直接在瀏覽器運作，並支援即時多人協作與強大的自動版面配置（Auto Layout），最適合團隊協同開發與原型驗證。',
-      whoIsItFor:'適合零基礎想踏入 UI/UX 設計領域、前端工程師想看懂設計標註、或是想快速進行產品概念驗證的創業者與獨立開發者。',
-      studyTime:'15 - 20 小時 / 基礎至實戰入門',
+      title:'Figma — 業界標準 UI/UX 設計與即時協作工具',
+      description:'全球主流介面設計工具。初階掌握基礎元件操作與 RWD 排版，進階解鎖設計系統與變數應用。',
+      extendedDesc:'Figma 是目前全球設計團隊最信任的介面設計與原型製作工具。它採用雲端協作架構，多人可同時在同一設計稿上編輯、評論。強大的 Auto Layout 與 Component 系統能大幅提昇介面開發效率，無縫銜接工程開發。',
+      whyRecommend:'免安裝且完全在瀏覽器運行，即時協作無縫對接。內建自動排版系統能完美模擬響應式網頁，是踏入 UI/UX 設計領域必學的黃金標準。',
+      whoIsItFor:'適合對介面設計有興趣的自學者、想增進切版準確度的前端工程師，以及需要進行產品概念原型設計的開發者。',
+      studyTime:'15 - 30 小時 / 基礎至進階設計系統',
       beginnerPath: {
-        desc: '適合完全零基礎的新手。我們推薦從 Figma 官方的「Figma 101」入門，教您如何建立基本形狀、套用色彩與字型，並快速拼湊出您的第一個手機介面線框圖。',
-        link: 'https://www.figma.com/resources/learn-design/get-started/'
+        desc: '初階 (Joy Shaheb 入門)：推薦自學者從知名講師 Joy Shaheb 在 freeCodeCamp 推出的 Figma 零基礎入門教學開始。您將學習 Figma 基礎介面操作、向量繪圖工具，以及建立第一個手機 App 線框圖與基本視覺排版。',
+        link: 'https://www.youtube.com/watch?v=FTFaQWZBqA8',
+        studyTime: '15 - 20 小時 / 基礎至實戰入門'
       },
       advancedPath: {
-        desc: '適合已有介面概念的學習者。進階路徑引導您建構規範的「設計系統（Design Systems）」、運用 Auto Layout 進行複雜 RWD 排版，以及學習變體（Variants）與高保真原型交互。',
-        link: 'https://www.figma.com/resources/learn-design/design-systems/'
+        desc: '進階 (設計系統與變數應用)：深入學習業界規範的設計系統（Design Systems）。掌握進階 Auto Layout 響應式排版、元件變體（Variants）、Figma Variables（變數應用）以及高保真互動原型設計。',
+        link: 'https://www.figma.com/resources/learn-design/design-systems/',
+        studyTime: '20 - 30 小時 / 進階設計系統'
       },
       category:'design', categoryLabel:'🎨 設計',
-      tags:['UI設計','免費工具'],
+      tags:['UI設計','即時協作'],
       image:'assets/images/card-design.png',
       url:'https://www.figma.com/', logo:'figma'
     },
     {
       id:'canva', platform:'Canva',
-      title:'Canva — 零門檻視覺設計平台',
-      description:'拖拉式操作，數千種免費模板。不懂設計也能快速產出專業的社群貼文、簡報、海報。',
-      extendedDesc:'Canva 讓「不會設計」不再是阻礙你的理由。平台內建數十萬套由專業設計師打造的免費模板，涵蓋社群貼文、簡報、履歷、海報等各種場景，只需拖拉替換文字與圖片，幾分鐘就能產出視覺精緻的作品。',
-      whyRecommend:'平面設計界的神級救星。內建數十萬套由專業設計師打造的精緻免費模板與商用圖庫，不懂設計原理的人也能透過拖拉式操作，快速產出專業級的海報與簡報。',
-      whoIsItFor:'適合需要頻繁製作簡報與報告的學生、社群自媒體小編、行銷企劃人員，以及所有想讓視覺素材更有質感卻時間有限的自主學習者。',
-      studyTime:'3 - 5 小時 / 零基礎快速上手',
+      title:'Canva — 零門檻雲端平面與簡報設計平台',
+      description:'拖拉式簡單操作。初階學習平面排版與視覺平衡，進階掌握品牌識別系統建立。',
+      extendedDesc:'Canva 讓設計變得人人皆可上手。它內建數十萬套精緻模板，涵蓋簡報、海報、履歷與社群貼文。使用者不需複雜的軟體操作基礎，透過直覺的拖拉式元件、多樣化的商用字體與圖庫，即可快速完成吸睛的視覺作品。',
+      whyRecommend:'平面設計界的神級工具。內建極為豐富的免費模板與版權素材，拖拉式操作即可在幾分鐘內產出專業級的海報與簡報，是快速視覺化創意的首選。',
+      whoIsItFor:'適合需要頻繁製作簡報的學生、自媒體創作者、行銷小編，以及所有想在短時間內產出精美圖樣的自學者。',
+      studyTime:'3 - 10 小時 / 基礎排版至品牌視覺',
       beginnerPath: {
-        desc: '適合對視覺設計完全沒概念的自學者。透過 Canva 設計學院的「設計元素介紹」課程，您將學習如何挑選合適的字體、掌握基本排版對齊，並在一分鐘內套用精緻模板做出一張海報。',
-        link: 'https://www.canva.com/designschool/tutorials/design-elements/'
+        desc: '初階 (平面排版基礎)：專為設計小白打造。透過 Canva 官方設計學院課程，掌握基礎的色彩搭配、字體階層與畫面留白原則，並學會運用拖拉式介面在一分鐘內套用模板製作專業海報。',
+        link: 'https://www.canva.com/designschool/tutorials/design-elements/',
+        studyTime: '3 - 5 小時 / 零基礎快速上手'
       },
       advancedPath: {
-        desc: '專為自媒體品牌或商業報告設計。進階路徑包含如何建立「品牌視覺套件（Brand Kits）」、製作多媒體動態簡報，以及使用 Canva Team 進行雲端多人同步審核。',
-        link: 'https://www.canva.com/designschool/courses/create-a-brand/'
+        desc: '進階 (品牌識別系統建立)：引導自學者建立專屬的「品牌視覺套件（Brand Kits）」。學習品牌一致性的視覺規劃、團隊協作流程、動態多媒體簡報設計，以及將靜態圖稿輸出為動畫影片的技巧。',
+        link: 'https://www.canva.com/designschool/courses/create-a-brand/',
+        studyTime: '6 - 10 小時 / 品牌視覺實務'
       },
       category:'design', categoryLabel:'🎨 設計',
-      tags:['平面設計','模板'],
+      tags:['平面設計','快速排版'],
       image:'assets/images/card-art.png',
       url:'https://www.canva.com/', logo:'canva'
     },
     {
       id:'freecodecamp', platform:'freeCodeCamp',
-      title:'freeCodeCamp — 完全免費的程式學習',
-      description:'超過 8,000 小時的免費課程與認證，涵蓋網頁開發、Python、資料科學等熱門領域。',
-      extendedDesc:'freeCodeCamp 是全球最大的免費程式學習社群，提供超過 8,000 小時的互動式課程，完成後還能獲得正式的開發者認證。課程路徑從基礎的 HTML/CSS 開始，一路延伸到 JavaScript、React、Node.js、Python 資料科學與機器學習。',
-      whyRecommend:'全球最大的免費開源程式教育平台。以「互動式實作」為核心，直接在瀏覽器動手撰寫程式碼並即時驗證。提供完整的全端開發認證，且全球社群規模龐大。',
-      whoIsItFor:'適合完全零基礎的程式小白、想轉職全端工程師的自學者，或想要建立紮實 HTML/CSS/JavaScript 與 Python 底層邏輯的學習者。',
-      studyTime:'300+ 小時 / 基礎到專業認證',
+      title:'freeCodeCamp — 互動式全端開發與程式學習平台',
+      description:'完全免費的開源程式學習平台。初階進行響應式網頁設計，進階取得 JavaScript/Python 認證。',
+      extendedDesc:'freeCodeCamp 是全球最大的免費程式學習社群，提供超過 8,000 小時的實作課程。它最大的亮點在於「在瀏覽器動手做專案」——你不用安裝任何開發環境，直接寫程式通過測試即可獲得證書，在全球廣受企業認可。',
+      whyRecommend:'以互動式專案為核心，免去繁瑣的環境設定。完成每個模組的 5 大專案即可免費獲得官方認證，內容由淺入深，是轉職全端開發最紮實的開源資源。',
+      whoIsItFor:'適合想轉職網頁工程師的程式小白、想建立紮實程式底層邏輯的自學者，或需要大專專案實作經驗的理工學子。',
+      studyTime:'300 - 600 小時 / 網頁基礎至專業開發',
       beginnerPath: {
-        desc: '適合程式小白。推薦從「響應式網頁設計（Responsive Web Design）」模組開始，透過直接在網頁編輯器上撰寫程式碼，打下紮實的 HTML5 與 CSS3 架構底子。',
-        link: 'https://www.freecodecamp.org/learn/2022/responsive-web-design/'
+        desc: '初階 (Responsive Web Design)：從基礎的 HTML5 和 CSS3 語法開始。透過互動式網頁編輯器，親手撰寫程式碼並即時通過測試，完成包括貓咪相簿、企鵝動畫等趣味專案，並取得響應式網頁設計證書。',
+        link: 'https://www.freecodecamp.org/learn/2022/responsive-web-design/',
+        studyTime: '300+ 小時 / 奠定網頁基礎'
       },
       advancedPath: {
-        desc: '適合已掌握基本網頁語法的自學者。進階路徑提供 React 前端庫、Node.js 後端開發、Python 資料分析等，包含多個實用的大型專案實作，建構您的專業履歷作品集。',
-        link: 'https://www.freecodecamp.org/learn/front-end-development-libraries/'
+        desc: '進階 (JavaScript/Python 認證)：挑戰進階程式邏輯與資料科學。提供 JavaScript 演算法與資料結構認證，或是 Python 數據分析與機器學習證書，帶你實作多個實用專案以建構個人作品集。',
+        link: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/',
+        studyTime: '300+ 小時 / 挑戰核心認證'
       },
       category:'code', categoryLabel:'💻 程式',
-      tags:['網頁開發','認證'],
+      tags:['網頁開發','開源學習'],
       image:'assets/images/card-programming.png',
       url:'https://www.freecodecamp.org/', logo:'freecodecamp'
     },
     {
       id:'scratch', platform:'MIT Scratch',
-      title:'Scratch — 視覺化積木程式語言',
-      description:'MIT 開發的視覺化程式語言，用拖拉積木的方式學寫程式，最適合初學者與青少年入門。',
-      extendedDesc:'Scratch 由 MIT 媒體實驗室開發，是全球最受歡迎的兒童與青少年程式入門平台。它採用直覺的「拖拉積木」介面，不需要記住任何語法，就能創作互動故事、動畫和遊戲。',
-      whyRecommend:'MIT 媒體實驗室專為程式啟蒙開發的積木語言。免去繁瑣的語法除錯，僅需拖拉色彩繽紛的積木，即可直覺地理解條件分支、迴圈與變數等核心程式思維。',
-      whoIsItFor:'適合 8 歲以上的兒童、青少年，以及完全沒有程式概念但想快速培養邏輯運算思維的軟體開發初學者。',
-      studyTime:'8 - 12 小時 / 邏輯思維與遊戲創作',
+      title:'Scratch — 視覺化積木程式語言與創作平台',
+      description:'MIT 開發的程式入門工具。初階拼湊積木動畫，進階開發遊戲邏輯與數學物理演算。',
+      extendedDesc:'Scratch 是由 MIT 媒體實驗室專門開發的積木式程式語言。它將複雜的程式語法抽象化為彩色積木，透過拖拉組合，即可編寫出動畫、故事與遊戲。這是培養邏輯思考與解決問題能力的最棒起點。',
+      whyRecommend:'完全擺脫拼字語法錯誤，以視覺化、遊戲化的方式培養運算思維。擁有全球數百萬人參與的活躍創意社群，可以隨時參考他人的專案原始碼。',
+      whoIsItFor:'適合 8 歲以上的青少年兒童、想啟盟邏輯思維的成年人，以及對軟體開發毫無概念的完全初學者。',
+      studyTime:'8 - 20 小時 / 邏輯啟蒙至複雜遊戲實作',
       beginnerPath: {
-        desc: '適合兒童與程式入門者。藉由「創作者新手村」的拖拉式積木，拼湊出簡單的對話動畫與方向鍵控制小遊戲，直覺地理解程式的順序執行與基本分支邏輯。',
-        link: 'https://scratch.mit.edu/ideas'
+        desc: '初階 (積木動畫)：由 MIT 媒體實驗室專為程式啟蒙開發的積木語言。藉由「創作者新手村」的拖拉式積木，在不碰代碼語法的情況下，拼湊出角色對話、舞台音樂與基礎的鍵盤方向鍵控制動畫。',
+        link: 'https://scratch.mit.edu/ideas',
+        studyTime: '8 - 12 小時 / 邏輯思維與遊戲啟蒙'
       },
       advancedPath: {
-        desc: '適合想挑戰複雜遊戲邏輯的學子。進階指南教您如何使用 Scratch 的「自訂積木（建立函式）」、廣播系統（訊息傳遞機制）以及變數克隆技術，建構多關卡動作遊戲。',
-        link: 'https://scratch.mit.edu/studios/5387201/'
+        desc: '進階 (遊戲邏輯與數學演算)：適合想挑戰複雜程式邏輯的學習者。學習如何使用 Scratch 的「自訂積木（建立函式）」、廣播系統（訊息傳遞）、變數克隆技術，以及如何運用數學座標公式編寫流暢的物理碰撞和關卡判斷。',
+        link: 'https://scratch.mit.edu/studios/5387201/',
+        studyTime: '15 - 20 小時 / 遊戲物理與算法實作'
       },
       category:'code', categoryLabel:'💻 程式',
-      tags:['入門友善','遊戲化'],
+      tags:['邏輯啟蒙','遊戲化'],
       image:'assets/images/card-science.png',
       url:'https://scratch.mit.edu/', logo:'scratch'
     },
@@ -131,11 +139,13 @@
       studyTime:'每天 10 分鐘 / 彈性進度',
       beginnerPath: {
         desc: '適合語言學習起步者。用遊戲化的字卡拼湊、基礎單字連連看，每天 5 分鐘在無痛環境中建立新語言的語感，克服對外語發音的恐懼。',
-        link: 'https://www.duolingo.com/register'
+        link: 'https://www.duolingo.com/register',
+        studyTime: '每天 10 分鐘 / 自主入門'
       },
       advancedPath: {
         desc: '適合想提升日常聽力與口說流暢度的學習者。進階路徑提供語音 AI 對話練習、長篇閱讀理解，以及連續答題挑戰，幫助您在外語社交情境中對答如流。',
-        link: 'https://www.duolingo.com/super'
+        link: 'https://www.duolingo.com/super',
+        studyTime: '每天 20 分鐘 / 進階特訓'
       },
       category:'language', categoryLabel:'📖 語文',
       tags:['多語言','遊戲化'],
@@ -152,11 +162,13 @@
       studyTime:'20 - 30 小時 / 聽說能力全面提升',
       beginnerPath: {
         desc: '適合英文聽力初學者。建議選用「日常生活與休閒會話」短影音，開啟中英雙語字幕，利用單字即時點擊查詢與收藏功能，在情境中自然記憶單字。',
-        link: 'https://tw.voicetube.com/channel/everyday'
+        link: 'https://tw.voicetube.com/channel/everyday',
+        studyTime: '10 - 15 小時 / 聽力語感建立'
       },
       advancedPath: {
         desc: '適合想精進商業聽力與口說流暢度的自學者。挑戰「TED 演講」或「BBC 新聞」，嘗試關閉中文字幕，並使用平台內建的口說挑戰錄音比對系統進行連音特訓。',
-        link: 'https://tw.voicetube.com/challenges/pronunciation'
+        link: 'https://tw.voicetube.com/challenges/pronunciation',
+        studyTime: '15 - 20 小時 / 商業演說實戰'
       },
       category:'language', categoryLabel:'📖 語文',
       tags:['英語','影片學習'],
@@ -173,11 +185,13 @@
       studyTime:'10 - 15 小時 / 記譜與編曲入門',
       beginnerPath: {
         desc: '樂譜編輯與基礎記譜入門。教您如何建立單旋律五線譜，手動輸入音符，並進行基礎的移調（Transpose）與簡易鋼琴曲記譜。',
-        link: 'https://musescore.org/zh-hant/handbook/tutorial-layout'
+        link: 'https://musescore.org/zh-hant/handbook/tutorial-layout',
+        studyTime: '5 - 8 小時 / 基礎排版記譜'
       },
       advancedPath: {
         desc: '複雜多聲部與交響樂編曲。引導自學者如何使用多聲部編輯系統、管弦樂配器編制、動態總譜（Linked Parts）製作，以及匯出高品質的 MIDI/XML 檔案。',
-        link: 'https://musescore.org/zh-hant/handbook/3/basics'
+        link: 'https://musescore.org/zh-hant/handbook/3/basics',
+        studyTime: '8 - 12 小時 / 多軌交響配器'
       },
       category:'art', categoryLabel:'🎭 藝術',
       tags:['音樂','開源'],
@@ -194,11 +208,13 @@
       studyTime:'5 - 8 小時 / 影像處理實務學會',
       beginnerPath: {
         desc: '線上輕量級修圖與卡片製作。推薦使用 Pixlr X 介面，教您如何一鍵去背、套用相片濾鏡、加入藝術文字，快速完成日常簡報配圖與海報設計。',
-        link: 'https://pixlr.com/tw/x/'
+        link: 'https://pixlr.com/tw/x/',
+        studyTime: '2 - 3 小時 / 快速平面編修'
       },
       advancedPath: {
         desc: '專業級分層修圖與數位暗房。使用 Pixlr E 專業介面，解鎖多圖層混合模式、魔術棒去背、曲線色彩調整（Curves），以及非破壞性濾鏡等仿 Photoshop 專業功能。',
-        link: 'https://pixlr.com/tw/e/'
+        link: 'https://pixlr.com/tw/e/',
+        studyTime: '4 - 6 小時 / 分層合成調色'
       },
       category:'art', categoryLabel:'🎭 藝術',
       tags:['修圖','線上工具'],
@@ -215,11 +231,13 @@
       studyTime:'配合學校課程 / 長期自主學伴',
       beginnerPath: {
         desc: '適合 K-12 在學學生進行基礎觀念複習。平台提供與學校課堂同步的單元教學影片，搭配簡單的概念自測，確保每個小觀念都融會貫通。',
-        link: 'https://www.junyiacademy.org/root/junyi-math'
+        link: 'https://www.junyiacademy.org/root/junyi-math',
+        studyTime: '每單元約 2 - 3 小時 / 進度同步'
       },
       advancedPath: {
         desc: '適合面臨升學大考（會考/學測）的考生。利用均一的「AI 診斷系統」自動偵測學習弱點，產出個人化複習考卷，並提供歷屆大考真題的影音解析與詳盡複習路徑。',
-        link: 'https://www.junyiacademy.org/exam'
+        link: 'https://www.junyiacademy.org/exam',
+        studyTime: '每科約 15 - 20 小時 / 升學備考衝刺'
       },
       category:'exam', categoryLabel:'📝 升學',
       tags:['K-12','台灣課綱'],
@@ -236,11 +254,13 @@
       studyTime:'10 - 20 小時 / 聽說讀寫全面精進',
       beginnerPath: {
         desc: '國中小學生英語啟蒙。透過口說精靈與繪本專區，在活潑的動漫童話情境中練習英文字母發音與基礎會話，用點數換禮物的機制保持學習熱情。',
-        link: 'https://www.coolenglish.edu.tw/mcourse.php'
+        link: 'https://www.coolenglish.edu.tw/mcourse.php',
+        studyTime: '8 - 12 小時 / 口說趣味啟蒙'
       },
       advancedPath: {
         desc: '高中生及成人全民英檢（GEPT）與多益（TOEIC）備考。提供豐富的官方模擬試題、寫作 AI 線上批改反饋，以及商業英語聽力特訓，全面提升實戰檢定成績。',
-        link: 'https://www.coolenglish.edu.tw/hcourse.php'
+        link: 'https://www.coolenglish.edu.tw/hcourse.php',
+        studyTime: '15 - 25 小時 / 證照檢定衝刺'
       },
       category:'exam', categoryLabel:'📝 升學',
       tags:['英文','官方資源'],
@@ -257,11 +277,13 @@
       studyTime:'單一學科約 30 小時 / 自主精熟學習',
       beginnerPath: {
         desc: '數理科學基礎扎根。從最基礎的國中小數學代數、基礎物理運動學影片看起，每個影片不超過 10 分鐘，搭配直覺的連貫性練習題，無痛跨入數理領域。',
-        link: 'https://www.khanacademy.org/math'
+        link: 'https://www.khanacademy.org/math',
+        studyTime: '15 - 20 小時 / 基礎觀念打底'
       },
       advancedPath: {
         desc: '大學先修課程（AP Calculus, Linear Algebra）或進階科學。深入探討微積分、有機化學、總體經濟學，藉由精熟學習（Mastery Learning）演算法，突破硬核理工知識。',
-        link: 'https://www.khanacademy.org/science/ap-physics-1'
+        link: 'https://www.khanacademy.org/science/ap-physics-1',
+        studyTime: '25 - 35 小時 / 進階學科建模'
       },
       category:'science', categoryLabel:'🔬 科學',
       tags:['數理','國際化'],
@@ -278,106 +300,64 @@
       studyTime:'5 - 8 小時 / 探究式科學實作',
       beginnerPath: {
         desc: '趣味物理與化學實驗啟蒙。利用拖拉式的虛擬實驗室（例如：『波的干涉』或『組裝電路』），親手調整參數，用眼睛『看見』電壓與波動等抽象科學物理概念。',
-        link: 'https://phet.colorado.edu/zh_TW/simulations/category/physics'
+        link: 'https://phet.colorado.edu/zh_TW/simulations/category/physics',
+        studyTime: '2 - 3 小時 / 互動模擬探索'
       },
       advancedPath: {
         desc: '定量理科實驗與假設驗證。在『氣體屬性定律』或『量子力學模型』模擬中，收集多組數據，利用統計圖表進行科學建模，適合高中理科專題與畢設專案驗證。',
-        link: 'https://phet.colorado.edu/zh_TW/simulations/category/chemistry'
+        link: 'https://phet.colorado.edu/zh_TW/simulations/category/chemistry',
+        studyTime: '4 - 6 小時 / 定量實驗與分析'
       },
       category:'science', categoryLabel:'🔬 科學',
       tags:['模擬實驗','視覺化'],
       image:'assets/images/card-science.png',
       url:'https://phet.colorado.edu/', logo:'phet'
     },
-    // ═══════════════════════════════════════════
-    // 📸 攝影類 — Photography (新增)
-    // ═══════════════════════════════════════════
     {
-      id:'photography-light', platform:'攝影學基礎',
-      title:'攝影基礎：光影控制與構圖美學',
-      description:'教導如何利用自然光與構圖說故事，讓你的照片充滿生命力與故事感。',
-      extendedDesc:'本課程對接頂尖攝影學觀念，帶你了解相機的三大曝光要素：光圈、快門、感光度，並學習如何在日常生活中捕捉光線，運用經典的三分法、引導線構圖等美學概念來說故事。',
-      whyRecommend:'教導如何利用自然光與構圖說故事，由淺入深理解光線對照片情緒的控制，是建立美感視覺直覺的必修課。',
-      whoIsItFor:'適合想提升日常拍攝質感、學習相機基本操作的攝影新手，或想為設計專案準備溫暖寫實素材的設計師。',
-      studyTime:'8 - 12 小時 / 基礎美學與實作',
+      id:'photography', platform:'攝影藝術',
+      title:'攝影藝術 — 從光影構圖到數位暗房處理',
+      description:'探索視覺故事的張力。初階學習光影曝光與構圖美學，進階掌握開源軟體 Darktable 的無損 RAW 後製與色彩管理。',
+      extendedDesc:'攝影是瞬間的藝術，更是光影與色彩的交響。本課程整合了劍橋攝影學院的光影構圖教材與 Darktable 數位暗房實作。初階學習如何利用相機參數調控畫面情緒，進階則教導你如何處理 RAW 檔、調整直方圖，產出大師級影像。',
+      whyRecommend:'理論與實作完美結合。將相機的操作原理與開源專業修圖軟體 Darktable 無縫對接，免去付費軟體訂閱負擔，實現極具張力的攝影視覺美學。',
+      whoIsItFor:'適合想提升生活拍攝質感的初學者、想精進調色技巧的設計師，或想深入學習 RAW 檔數位暗房處理的攝影愛好者。',
+      studyTime:'8 - 18 小時 / 美感曝光至數位暗房',
       beginnerPath: {
-        desc: '零基礎日常攝影起步。學習如何用手機或入門相機，透過「三分法構圖」和尋找身邊的「單一光源」，在日常街拍中拍出有溫度的畫面。',
-        link: 'https://www.cambridgeincolour.com/tutorials/camera-exposure.htm'
+        desc: '初階 (光影構圖基礎)：學習用照片說故事的視覺美學。掌握相機的三大曝光核心要素：光圈、快門與感光度，並學習如何在日常生活中捕捉光線，運用經典的三分法、引導線與對稱構圖。',
+        link: 'https://www.cambridgeincolour.com/tutorials/camera-exposure.htm',
+        studyTime: '8 - 12 小時 / 基礎曝光與構圖美學'
       },
       advancedPath: {
-        desc: '專業人像與風景光影雕塑。深入學習多光源室內棚拍布光、HDR 高動態範圍曝光疊加技術、動態追焦（Panning），以及大片感的區域曝光法（Zone System）。',
-        link: 'https://www.cambridgeincolour.com/tutorials/portraits.htm'
+        desc: '進階 (Darktable/修圖數位暗房)：掌握專業 RAW 檔編修與數位暗房技術。對接免費開源的 Darktable 軟體，學習非破壞性影像編輯、白平衡矯正、色彩曲線（Curves）、局部遮罩（Masking）與調色風格建立。',
+        link: 'https://www.darktable.org/usermanual/en/',
+        studyTime: '12 - 18 小時 / 暗房後製與 RAW 編修'
       },
       category:'photography', categoryLabel:'📸 攝影',
-      tags:['攝影入門','構圖美學'],
+      tags:['光影構圖','開源修圖'],
       image:'assets/images/card-art.png',
-      url:'https://www.cambridgeincolour.com/', logo:'photography'
+      url:'https://www.darktable.org/', logo:'photography'
     },
     {
-      id:'photography-darkroom', platform:'Darktable 學院',
-      title:'數位暗房基礎：Darktable 影像後製實務',
-      description:'對接免費開源修圖軟體 Darktable，從曝光調整到色彩管理，掌握專業相片後製技術。',
-      extendedDesc:'Darktable 是免費且開源的 RAW 檔編輯與調色工具，功能直追 Lightroom。本教學引導你如何進行非破壞性影像編輯，管理大量照片，並精準控制照片細節。',
-      whyRecommend:'對接免費且開源的修圖軟體 Darktable，掌握媲美專業付費軟體的無損相片編修、白平衡矯正與風格色調建立。',
-      whoIsItFor:'適合預算有限的自主學習者、獨立攝影師，以及想要深入掌握數位影像色彩校正與暗房處理的學子。',
-      studyTime:'10 - 15 小時 / 專業後製技術學會',
+      id:'music', platform:'音樂創作',
+      title:'音樂創作 — 數位編曲與樂理大師之路',
+      description:'解鎖你的音樂創作天賦。初階使用 GarageBand 輕鬆編曲，進階透過 MuseScore 學習數位打譜與編曲理論。',
+      extendedDesc:'音樂創作不再遙不可及。透過數位音訊工作站（DAW）與開源打譜工具，你可以將腦中的旋律化為真實的音符。初階介紹如何利用預製 Loops 進行創意堆疊，進階引導學習正統樂理與交響配器，實現原創夢想。',
+      whyRecommend:'完全免費的數位編曲與記譜學習方案。內建大量智慧樂器與開源樂理教學小遊戲，讓看譜與編曲變得像玩遊戲一樣簡單，是培養藝術素養的必備資源。',
+      whoIsItFor:'適合想為短片/動畫配樂的自學者、音樂愛好者、想考取樂理檢定的學子，以及想學習原創編曲的音樂新手。',
+      studyTime:'6 - 20 小時 / 數位編曲至專業打譜',
       beginnerPath: {
-        desc: '新手 RAW 檔調色入門。認識 RAW 檔與 JPEG 的差異，教您如何在 Darktable 中進行基礎的「白平衡校正」、調整曝光與飽和度，拯救照片。',
-        link: 'https://www.darktable.org/usermanual/en/overview/basic_concepts/'
+        desc: '初階 (GarageBand 基礎)：零經費也能彈奏編曲！使用 GarageBand 的虛擬智慧樂器、現成高品質循環 Loops 庫與多軌混音，即使看不懂五線譜，也能在幾分鐘內親手拼湊出第一首 8 小節輕快背景音樂。',
+        link: 'https://support.apple.com/zh-tw/guide/garageband-ipad/welcome/ipados',
+        studyTime: '6 - 10 小時 / 數位編曲輕鬆入門'
       },
       advancedPath: {
-        desc: '高階色調分離與區域編修。掌握 Darktable 強大的「遮罩層（Masking）」功能、色彩區域重建（Color Reconstruction）、漸層濾鏡，以及膠片模擬調色風格。',
-        link: 'https://www.darktable.org/usermanual/en/darkroom/processing_modules/'
-      },
-      category:'photography', categoryLabel:'📸 攝影',
-      tags:['開源修圖','相片後製'],
-      image:'assets/images/card-design.png',
-      url:'https://www.darktable.org/', logo:'darktable'
-    },
-    // ═══════════════════════════════════════════
-    // 🎵 音樂類 — Music (新增)
-    // ═══════════════════════════════════════════
-    {
-      id:'music-garageband', platform:'Apple Learn',
-      title:'GarageBand 數位音樂編曲入門',
-      description:'零經費也能用手機或電腦創作出第一首 SDGs 公益主題曲，解鎖你的音樂創作天賦。',
-      extendedDesc:'GarageBand 將你的 Apple 裝置變成一間功能齊備的錄音室。本教學教你如何運用虛擬智慧樂器、現成 Loops 音效與多軌混音，即使看不懂樂譜也能輕鬆創作出第一首歌。',
-      whyRecommend:'零經費編曲神作。內建大量的高品質虛擬樂器與預製循環 Loops 庫，支援多聲部軌道錄音與混音，是快速學寫原創歌的捷徑。',
-      whoIsItFor:'適合想為自己設計的動畫或短片配樂的創作者、音樂愛好者，以及想零門檻嘗試寫第一首歌的學習者。',
-      studyTime:'6 - 10 小時 / 音樂編曲輕鬆入門',
-      beginnerPath: {
-        desc: '手機/電腦樂器演奏與錄音。用觸控樂器錄製簡單旋律，教您如何剪輯音軌、調整音量大小，並拼湊出第一首屬於您的 8 小節輕快背景音樂。',
-        link: 'https://support.apple.com/zh-tw/guide/garageband-ipad/welcome/ipados'
-      },
-      advancedPath: {
-        desc: '多聲部混音與合成器編曲。教您如何調整等化器（EQ）、加入混響（Reverb）與延遲（Delay）音效，並利用 Loop 循環庫進行精緻的 SDGs 公益單曲編曲與混音。',
-        link: 'https://support.apple.com/zh-tw/guide/garageband/welcome/mac'
+        desc: '進階 (數位音樂編曲理論)：學習專業樂譜製作與數位編曲。結合互動樂理、三和弦/七和弦結構，並使用開源 MuseScore 進行交響配器與高品質 MIDI 匯出。',
+        link: 'https://musescore.org/zh-hant/handbook',
+        studyTime: '15 - 20 小時 / 交響打譜與配器'
       },
       category:'music', categoryLabel:'🎵 音樂',
-      tags:['音樂製作','數位編曲'],
+      tags:['數位音樂','樂理打譜'],
       image:'assets/images/card-language.png',
-      url:'https://www.apple.com/tw/mac/garageband/', logo:'garageband'
-    },
-    {
-      id:'music-theory', platform:'MusicTheory.net',
-      title:'互動樂理基礎與視唱聽寫',
-      description:'對接免費線上互動樂理開源網站，用遊戲化且直覺的介面，輕鬆學習五線譜與和弦。',
-      extendedDesc:'MusicTheory.net 是完全免費的線上互動樂理網站，提供從認識音高、音程、三和弦、七和弦到調性等系列課程，並搭配極具趣味的視唱聽寫小遊戲，快速訓練耳朵對音高的直覺。',
-      whyRecommend:'完全免費且開源的樂理學習天花板。用極簡乾淨的黑白琴鍵與五線譜動畫，配合無壓力的連連看聽音小遊戲，快速訓練你的耳朵與音準感。',
-      whoIsItFor:'適合合唱團或樂團團員、音樂自學者、需要準備升學視唱聽寫考試的考生，以及所有想看懂五線譜的人。',
-      studyTime:'10 - 15 小時 / 聽力與視唱訓練',
-      beginnerPath: {
-        desc: '認識五線譜與基礎音高。用最直覺的鍵盤對照圖，學習認識高低音譜號、音名、基礎節拍，並透過聽音小遊戲快速建立您的音高直覺感。',
-        link: 'https://www.musictheory.net/lessons'
-      },
-      advancedPath: {
-        desc: '大調/小調和弦建構與視唱聽寫。深入學習三和弦（Triads）、七和弦（Seventh Chords）、大小調調性關係，以及進行實用的音程與和弦視唱聽寫特訓。',
-        link: 'https://www.musictheory.net/exercises'
-      },
-      category:'music', categoryLabel:'🎵 音樂',
-      tags:['樂理基礎','聽力訓練'],
-      image:'assets/images/card-exam.png',
-      url:'https://www.musictheory.net/', logo:'musictheory'
+      url:'https://musescore.org/', logo:'music'
     }
   ];
 

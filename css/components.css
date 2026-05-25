@@ -1007,6 +1007,7 @@ body.a11y-mode .a11y-toggle-btn {
 /* ══════════════════════════════════════════════
    📖 嚴選學習資源詳細導讀彈窗 (Glassmorphism & Editorial UI - 黃金雙欄重構)
    ══════════════════════════════════════════════ */
+/* 📖 Resource Detail Modal 最終優化與滾動防鎖死樣式 */
 .rd-modal-overlay {
   position: fixed;
   inset: 0;
@@ -1015,21 +1016,19 @@ body.a11y-mode .a11y-toggle-btn {
   -webkit-backdrop-filter: blur(16px);
   z-index: 9999;
   display: flex;
-  align-items: flex-start; /* 改為 flex-start 讓頂部有空間 */
+  align-items: flex-start;
   justify-content: center;
-  padding: 40px 20px;       /* 增加優雅留白 */
-  overflow-y: auto;        /* 啟用遮罩層垂直滾動 */
+  padding: 40px 20px;
+  overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
               visibility 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
-
 .rd-modal-overlay.active {
   opacity: 1;
   visibility: visible;
 }
-
 .rd-modal-card {
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(30px);
@@ -1037,24 +1036,17 @@ body.a11y-mode .a11y-toggle-btn {
   border: 1px solid rgba(10, 186, 181, 0.2);
   border-radius: 24px;
   overflow: hidden;
-  max-width: 820px; /* 放寬最大寬度，因應橫向雙欄佈局 */
+  max-width: 820px;
   width: 90%;
-  height: auto;      /* 高度自適應，隨遮罩滾動，防鎖死 */
   box-shadow: 0 30px 70px rgba(10, 186, 181, 0.12), 
               0 10px 30px rgba(0, 0, 0, 0.04);
   transform: scale(0.95) translateY(30px);
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.2, 1.1);
   position: relative;
-  
-  /* 桌機版雙欄 Grid 排版 */
-  display: grid;
-  grid-template-columns: 42% 58%;
 }
-
 .rd-modal-overlay.active .rd-modal-card {
   transform: scale(1) translateY(0);
 }
-
 .rd-modal-close {
   position: absolute;
   top: 16px;
@@ -1074,25 +1066,17 @@ body.a11y-mode .a11y-toggle-btn {
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
 .rd-modal-close:hover {
   background: #E0F7F6;
   color: #089A96;
   border-color: rgba(10, 186, 181, 0.3);
   transform: rotate(90deg) scale(1.05);
 }
-
 .rd-modal-hero {
-  grid-column: 1;
-  grid-row: 1 / span 2;
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 480px;
   overflow: hidden;
-  border-right: 1px solid rgba(10, 186, 181, 0.1);
 }
-
 .rd-modal-hero img {
   width: 100%;
   height: 100%;
@@ -1100,11 +1084,9 @@ body.a11y-mode .a11y-toggle-btn {
   transform: scale(1.05);
   transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
-
 .rd-modal-overlay.active .rd-modal-hero img {
   transform: scale(1);
 }
-
 .rd-modal-category {
   position: absolute;
   bottom: 24px;
@@ -1118,22 +1100,23 @@ body.a11y-mode .a11y-toggle-btn {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 2;
 }
-
 .rd-modal-category[data-cat="design"]  { background: rgba(10, 186, 181, 0.85); }
 .rd-modal-category[data-cat="code"]    { background: rgba(99, 102, 241, 0.85); }
 .rd-modal-category[data-cat="language"]{ background: rgba(245, 158, 11, 0.85); }
 .rd-modal-category[data-cat="art"]     { background: rgba(236, 72, 153, 0.85); }
 .rd-modal-category[data-cat="exam"]    { background: rgba(16, 185, 129, 0.85); }
 .rd-modal-category[data-cat="science"] { background: rgba(59, 130, 246, 0.85); }
+.rd-modal-category[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
+.rd-modal-category[data-cat="music"] { background: rgba(142, 36, 170, 0.85); }
+
+.card-category-tag[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
+.card-category-tag[data-cat="music"] { background: rgba(142, 36, 170, 0.85); }
 
 .rd-modal-body {
-  grid-column: 2;
-  grid-row: 1;
   padding: 40px 40px 12px;
-  overflow: visible;
 }
-
 .rd-modal-platform {
   display: inline-flex;
   align-items: center;
@@ -1145,7 +1128,6 @@ body.a11y-mode .a11y-toggle-btn {
   color: #089A96;
   margin-bottom: 8px;
 }
-
 .rd-modal-platform-logo {
   width: 18px;
   height: 18px;
@@ -1153,12 +1135,10 @@ body.a11y-mode .a11y-toggle-btn {
   align-items: center;
   justify-content: center;
 }
-
 .rd-modal-platform-logo svg {
   width: 100%;
   height: 100%;
 }
-
 .rd-modal-title {
   font-size: 1.45rem;
   font-weight: 900;
@@ -1167,14 +1147,12 @@ body.a11y-mode .a11y-toggle-btn {
   margin-bottom: 12px;
   letter-spacing: -0.01em;
 }
-
 .rd-modal-tags {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
-
 .rd-modal-tags span {
   font-size: 0.72rem;
   padding: 4px 12px;
@@ -1183,12 +1161,76 @@ body.a11y-mode .a11y-toggle-btn {
   color: #089A96;
   font-weight: 600;
 }
-
 .rd-modal-divider {
   width: 100%;
   height: 1px;
   background: linear-gradient(90deg, rgba(10, 186, 181, 0.25), rgba(10, 186, 181, 0.05));
+  margin: 20px 0;
+}
+.rd-modal-path-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
   margin-bottom: 20px;
+}
+.path-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #F1F3F5; /* 未選中時為淺灰色 */
+  border: 1.5px solid #E9ECEF;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: none;
+}
+.path-tab-btn:hover {
+  background: #E9ECEF;
+}
+.path-tab-btn .tab-icon {
+  font-size: 1.6rem;
+}
+.path-tab-btn .tab-meta {
+  display: flex;
+  flex-direction: column;
+}
+.path-tab-btn .tab-label {
+  font-size: 0.65rem;
+  color: #6c757d;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.path-tab-btn .tab-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #212529;
+}
+.path-tab-btn.active {
+  border-color: #0ABAB5; /* 選中時 Tiffany 綠邊框 */
+  background: #E0F7F6; /* Tiffany 綠極淺背景 */
+  box-shadow: 0 8px 24px rgba(10, 186, 181, 0.15); /* 輕微陰影 */
+}
+.path-tab-btn.active .tab-title {
+  color: #089A96;
+}
+.path-tab-btn.active .tab-label {
+  color: #0a8f8b;
+}
+
+.rd-modal-path-content {
+  background: rgba(10, 186, 181, 0.04);
+  border: 1px dashed rgba(10, 186, 181, 0.3);
+  padding: 16px 20px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+.rd-path-desc {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: #495057;
 }
 
 .rd-modal-editorial {
@@ -1196,23 +1238,20 @@ body.a11y-mode .a11y-toggle-btn {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-
 .rd-editorial-section {
   background: rgba(248, 249, 250, 0.6);
   border-left: 3px solid #0ABAB5;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 0 12px 12px 0;
 }
-
 .rd-modal-editorial .rd-editorial-section:last-child {
   grid-column: 1 / span 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 10px 18px;
   border-radius: 8px;
 }
-
 .rd-editorial-subtitle {
   font-size: 0.88rem;
   font-weight: 800;
@@ -1222,17 +1261,14 @@ body.a11y-mode .a11y-toggle-btn {
   align-items: center;
   gap: 6px;
 }
-
 .rd-modal-editorial .rd-editorial-section:last-child .rd-editorial-subtitle {
   margin-bottom: 0;
 }
-
 .rd-editorial-text {
   font-size: 0.85rem;
   line-height: 1.65;
   color: #495057;
 }
-
 .highlight-time {
   font-weight: 700;
   color: #089A96;
@@ -1242,14 +1278,9 @@ body.a11y-mode .a11y-toggle-btn {
   border-radius: 6px;
   margin-top: 0;
 }
-
 .rd-modal-footer {
-  grid-column: 2;
-  grid-row: 2;
   padding: 12px 40px 40px;
-  flex-shrink: 0;
 }
-
 .rd-modal-cta {
   display: flex;
   align-items: center;
@@ -1268,18 +1299,15 @@ body.a11y-mode .a11y-toggle-btn {
   box-shadow: 0 8px 24px rgba(10, 186, 181, 0.25);
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
-
 .rd-modal-cta:hover {
   transform: translateY(-3px) scale(1.01);
   box-shadow: 0 16px 36px rgba(10, 186, 181, 0.35);
   filter: brightness(1.05);
 }
-
 .rd-modal-cta:active {
   transform: translateY(-1px) scale(0.99);
   box-shadow: 0 6px 16px rgba(10, 186, 181, 0.2);
 }
-
 .rd-modal-cta-logo {
   width: 22px;
   height: 22px;
@@ -1288,182 +1316,131 @@ body.a11y-mode .a11y-toggle-btn {
   justify-content: center;
   flex-shrink: 0;
 }
-
 .rd-modal-cta-logo svg {
   width: 100%;
   height: 100%;
 }
 
+/* 桌機版 2-Column 黃金比例與內部獨立滾動優化 */
+@media (min-width: 768px) {
+  .rd-modal-card {
+    display: grid;
+    grid-template-columns: 40% 60%; /* 左圖右文 4:6 優雅比例 */
+    height: 640px;
+    max-height: 85vh;
+    overflow: hidden; /* 卡片本身不允許溢出 */
+  }
+  .rd-modal-hero {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    height: 100%;
+    min-height: 100%;
+    border-right: 1px solid rgba(10, 186, 181, 0.1);
+  }
+  .rd-modal-body {
+    grid-column: 2;
+    grid-row: 1;
+    height: 480px; /* 固定高度，讓內部文字滾動 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 40px 40px 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(10, 186, 181, 0.45) rgba(10, 186, 181, 0.03);
+  }
+  /* 美化 Chrome/Safari 滾動條樣式，呈現 Tiffany 綠色調 */
+  .rd-modal-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .rd-modal-body::-webkit-scrollbar-track {
+    background: rgba(10, 186, 181, 0.03);
+    border-radius: 3px;
+  }
+  .rd-modal-body::-webkit-scrollbar-thumb {
+    background: rgba(10, 186, 181, 0.45);
+    border-radius: 3px;
+    transition: background 0.3s;
+  }
+  .rd-modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(10, 186, 181, 0.75);
+  }
+  .rd-modal-footer {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 10px 40px 30px;
+    height: 100px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(10, 186, 181, 0.05);
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* 行動端與平板版適應 */
 @media (max-width: 767px) {
   .rd-modal-overlay {
-    padding: 20px 10px;      /* 行動端留白優化 */
-    align-items: flex-start; /* 改為頂部對齊以利滑動 */
+    padding: 20px 10px;
+    align-items: flex-start;
   }
   .rd-modal-card {
     max-width: 92%;
     width: 92%;
     margin: 0 auto;
-    height: auto;            /* 手機版改自適應，隨遮罩滾動，不設限 */
-    max-height: none;        /* 移除手機版最大高度限制，防止鎖死內容 */
+    height: auto;
+    max-height: none;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
   }
   .rd-modal-hero {
     width: 100%;
-    height: 150px;
-    min-height: 150px;
-    aspect-ratio: auto;
+    height: 160px;
+    min-height: 160px;
     border-right: none;
     border-bottom: 1px solid rgba(10, 186, 181, 0.1);
   }
-  .rd-modal-category {
-    bottom: 12px;
-    left: 16px;
-    padding: 4px 12px;
-    font-size: 0.75rem;
-  }
   .rd-modal-body {
     padding: 24px 20px 12px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
   }
   .rd-modal-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
   }
   .rd-modal-tags {
-    margin-bottom: 12px;
-  }
-  .rd-modal-divider {
     margin-bottom: 16px;
+  }
+  .rd-modal-path-selector {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .path-tab-btn {
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+  .path-tab-btn .tab-icon {
+    font-size: 1.3rem;
+  }
+  .path-tab-btn .tab-title {
+    font-size: 0.82rem;
   }
   .rd-modal-editorial {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
-  .rd-editorial-section {
-    padding: 10px 14px;
-  }
-  .rd-modal-editorial .rd-editorial-section:last-child {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-  }
   .rd-modal-footer {
     padding: 12px 20px 20px;
   }
-  .rd-modal-cta {
-    padding: 12px 20px;
-    font-size: 0.9rem;
-    border-radius: 12px;
-  }
 }
 
-@media (max-width: 768px) and (min-width: 577px) {
-  .rd-modal-card { max-width: 480px; }
-}
-
-
-
-/* 📸 攝影 and 🎵 音樂 分類標籤樣式 */
-.card-category-tag[data-cat="photography"],
-.rd-modal-category[data-cat="photography"] { background: rgba(245, 124, 0, 0.85); }
-.card-category-tag[data-cat="music"],
-.rd-modal-category[data-cat="music"] { background: rgba(142, 36, 170, 0.85); }
-
-/* 💡 初學/進階導航區選取器樣式 */
-.rd-modal-path-selector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-  role: tablist;
-}
-
-.path-tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: var(--color-surface, #FFFFFF);
-  border: 1.5px solid var(--color-border, #E0E6E9);
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.path-tab-btn .tab-icon {
-  font-size: 1.4rem;
-}
-
-.path-tab-btn .tab-meta {
-  display: flex;
-  flex-direction: column;
-}
-
-.path-tab-btn .tab-label {
-  font-size: 0.65rem;
-  color: var(--color-text-secondary, #636E72);
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.path-tab-btn .tab-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-text, #2D3436);
-}
-
-.path-tab-btn.active {
-  border-color: var(--color-primary, #0ABAB5);
-  box-shadow: 0 4px 15px rgba(10, 186, 181, 0.15);
-  background: var(--color-primary-bg, #E8F8F5);
-}
-
-.path-tab-btn.active .tab-title {
-  color: var(--color-primary-dark, #089E9A);
-}
-
-.rd-modal-path-content {
-  background: rgba(10, 186, 181, 0.04);
-  border: 1px dashed rgba(10, 186, 181, 0.3);
-  padding: 14px 18px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-.rd-path-desc {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: var(--color-text-secondary, #636E72);
-}
-
-/* ♿ 無障礙模式極致強化 (色盲、全盲、降噪) */
-body.a11y-mode .card-category-tag::before,
-body.a11y-mode .rd-modal-category::before {
-  content: "[類別: ] ";
-}
-
-/* 關閉 Canvas 粒子以進行降噪 */
-body.a11y-mode #particle-canvas {
-  opacity: 0 !important;
-  pointer-events: none;
-}
-
+/* ♿ 無障礙模式適應 */
 body.a11y-mode .path-tab-btn.active {
   border: 3px solid #000000 !important;
   background: #ffffff !important;
 }
-
 body.a11y-mode .path-tab-btn.active .tab-title {
   color: #000000 !important;
   text-decoration: underline !important;
 }
-
 body.a11y-mode .rd-modal-path-content {
   border: 2px solid #000000 !important;
   background: #ffffff !important;
